@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/api_data/api.dart';
 import 'package:rcp/screens/product_list_view/dropdown_view_widget.dart';
+import 'package:rcp/screens/product_list_view/grid_view/grid_view_widget.dart';
 import 'package:rcp/screens/product_list_view/list_view/list_bulider_widget.dart';
 import 'package:rcp/screens/product_list_view/list_view/product_tile_widget.dart';
 import 'package:rcp/screens/product_list_view/search_field_widget.dart';
@@ -56,34 +57,32 @@ class _ListProductScreenState extends State<ListProductScreen> {
     });
   }
 
-  void switchView() {
-    switch (selectedView) {
-      case 'Grid':
-        {
-          print('Grid');
-        }
-        break;
-      case 'Simple list':
-        {
-          print('Gridbbb');
-        }
-        break;
-      case 'Big Pictures':
-        {
-          print('Gridaaa');
-        }
-        break;
-      case 'List':
-        {
-          print('Grisssd');
-        }
-        break;
-    }
-  }
+  // Widget switchView() {
+  //   switch (selectedView) {
+  //     case 'Grid':
+  //       {}
+  //       break;
+  //     case 'Simple list':
+  //       {
+  //         print('Gridbbb');
+  //       }
+  //       break;
+  //     case 'Big Pictures':
+  //       {
+  //         print('Gridaaa');
+  //       }
+  //       break;
+  //     case 'List':
+  //       {
+  //         return ListBulider(
+  //           listToShow: _listToShow,
+  //         );
+  //       }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    switchView();
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -118,7 +117,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
             ),
           ),
           Expanded(
-              child: ListBulider(
+              child: GridBuliderView(
             listToShow: _listToShow,
           )),
         ],

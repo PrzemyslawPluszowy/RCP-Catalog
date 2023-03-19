@@ -45,7 +45,7 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("Wlcome to racing custom parts"),
+        title: const Text("Wlcome to racing custom parts"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -67,13 +67,13 @@ class MainScreen extends StatelessWidget {
                               ),
                             ));
                       },
-                      child: Text('All Products'))
+                      child: const Text('All Products'))
                 ],
               ),
               const Divider(
                 height: 5,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               SizedBox(child: SingleCategoryGrid(category: category))

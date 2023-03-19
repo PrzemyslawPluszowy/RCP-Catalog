@@ -30,11 +30,6 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
     super.initState();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
   List<ImageList> get imagesList {
     List<ImageList> imagesList = product.images ?? [];
 

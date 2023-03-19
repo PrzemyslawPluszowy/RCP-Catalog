@@ -25,6 +25,15 @@ class ApiData with ChangeNotifier {
     return _rcpCategoryList;
   }
 
+  Future<void> getRCPdata2() async {
+    List<Product> rcp = [];
+    int page = 1;
+    final url = Uri.parse(
+        '${baseLink}products?consumer_key=$consumerKey&consumer_secret=$consumerSecret&per_page=99&page=$page');
+    final responseUrl = await http.get(url);
+    var data = jsonDecode(responseUrl.body).toString();
+  }
+
   Future<void> getRCPdata() async {
     int page = 1;
     bool breakFetch = false;

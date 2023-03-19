@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:rcp/product_modal/product.dart';
 import 'package:rcp/screens/product_overview/product_overview.dart';
@@ -45,19 +44,23 @@ class ProductTile extends StatelessWidget {
                 SizedBox(
                   width: 150,
                   height: 120,
-                  child: Image.network(imageLinkValidator(index),
-                      fit: BoxFit.fill, frameBuilder:
-                          (context, child, frame, wasSynchronouslyLoaded) {
-                    return child;
-                  }, loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) {
+                  child: Image.network(
+                    imageLinkValidator(index),
+                    fit: BoxFit.fill,
+                    frameBuilder:
+                        (context, child, frame, wasSynchronouslyLoaded) {
                       return child;
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  }),
+                    },
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
                 ),
                 Expanded(
                   child: Padding(
