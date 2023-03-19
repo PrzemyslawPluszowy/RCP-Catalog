@@ -31,7 +31,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   }
 
   List<ImageList> get imagesList {
-    List<ImageList> imagesList = product.images ?? [];
+    List<ImageList> imagesList = product.images;
 
     return imagesList;
   }
@@ -46,7 +46,9 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Colors.grey[200],
+        ),
         body: Column(
           children: [
             Container(

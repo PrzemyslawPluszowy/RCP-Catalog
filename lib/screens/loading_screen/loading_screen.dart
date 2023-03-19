@@ -68,7 +68,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                       ),
                       Consumer<ApiData>(
                         builder: (context, value, child) => Text(
-                            'Getting product ${value.count}/${value.numberProduct - 2}',
+                            'Getting product ${value.count}/${value.numberProduct + 2}',
                             style: const TextStyle(
                                 color: Colors.white,
                                 decorationStyle: TextDecorationStyle.dashed)),

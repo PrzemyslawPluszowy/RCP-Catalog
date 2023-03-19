@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rcp/screens/product_list_view/product_list_screen.dart';
-import 'package:rcp/theme_data/color_schemes.g.dart';
 
 import 'single_cat_grid_widget.dart';
 
@@ -44,6 +43,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.grey[200],
         automaticallyImplyLeading: false,
         title: const Text("Wlcome to racing custom parts"),
       ),

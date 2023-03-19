@@ -4,7 +4,6 @@ import 'package:rcp/api_data/api.dart';
 import 'package:rcp/screens/product_list_view/dropdown_view_widget.dart';
 import 'package:rcp/screens/product_list_view/grid_view/grid_view_widget.dart';
 import 'package:rcp/screens/product_list_view/list_view/list_bulider_widget.dart';
-import 'package:rcp/screens/product_list_view/list_view/product_tile_widget.dart';
 import 'package:rcp/screens/product_list_view/search_field_widget.dart';
 
 import '../../product_modal/product_modal.dart';
@@ -12,7 +11,7 @@ import '../../product_modal/product_modal.dart';
 class ListProductScreen extends StatefulWidget {
   ListProductScreen(this.idCategory, this.name, {super.key});
   int? idCategory;
-  String? name = '';
+  String name = '';
   static const String pageRoute = '/list-all';
   @override
   State<ListProductScreen> createState() => _ListProductScreenState();
@@ -57,44 +56,40 @@ class _ListProductScreenState extends State<ListProductScreen> {
     });
   }
 
-  // Widget switchView() {
-  //   switch (selectedView) {
-  //     case 'Grid':
-  //       {}
-  //       break;
-  //     case 'Simple list':
-  //       {
-  //         print('Gridbbb');
-  //       }
-  //       break;
-  //     case 'Big Pictures':
-  //       {
-  //         print('Gridaaa');
-  //       }
-  //       break;
-  //     case 'List':
-  //       {
-  //         return ListBulider(
-  //           listToShow: _listToShow,
-  //         );
-  //       }
-  //   }
-  // }
+  Widget switchView() {
+    switch (selectedView) {
+      case 'Grid':
+        {
+          return GridBuliderView(listToShow: _listToShow);
+        }
+      case 'Simple list':
+        {
+          return GridBuliderView(listToShow: _listToShow);
+        }
+
+      case 'Big Pictures':
+        {
+          return GridBuliderView(listToShow: _listToShow);
+        }
+        break;
+      case 'List':
+        {
+          return ListBulider(
+            listToShow: _listToShow,
+          );
+        }
+      default:
+        {
+          return ListBulider(listToShow: _listToShow);
+        }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  _listToShow.sort((a, b) => b.name!.compareTo(a.name!));
-                });
-              },
-              icon: const Icon(Icons.sort))
-        ],
         backgroundColor: Colors.grey[200],
         title: Text(widget.name as String),
       ),
@@ -109,6 +104,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
           SizedBox(
             width: double.infinity,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 DropdownView(
                   callbackView: getSelectedView,
@@ -116,10 +112,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
               ],
             ),
           ),
-          Expanded(
-              child: ListBulider(
-            listToShow: _listToShow,
-          )),
+          Expanded(child: switchView()),
         ],
       ),
     );
