@@ -5,10 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rcp/product_modal/category.dart';
 import 'package:rcp/product_modal/image.dart';
-import 'package:html/dom.dart';
-import 'package:html/dom_parsing.dart';
-import 'package:html/html_escape.dart';
-import 'package:html/parser.dart' as htmlParse;
 
 import '../product_modal/product.dart';
 

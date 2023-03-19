@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/api_data/api.dart';
 import 'package:rcp/screens/product_list_view/dropdown_view_widget.dart';
-import 'package:rcp/screens/product_list_view/product_tile_widget.dart';
+import 'package:rcp/screens/product_list_view/list_view/list_bulider_widget.dart';
+import 'package:rcp/screens/product_list_view/list_view/product_tile_widget.dart';
 import 'package:rcp/screens/product_list_view/search_field_widget.dart';
 
 import '../../product_modal/product.dart';
@@ -34,12 +35,18 @@ class _ListProductScreenState extends State<ListProductScreen> {
     super.initState();
   }
 
-  void search(value) {
+  void search(String value) {
     setState(() {
-      _listToShow = _listToSearch
-          .where((element) =>
-              element.name!.toLowerCase().contains(value.toLowerCase()))
-          .toList();
+      List<String> wordList = [];
+      value.split(' ').forEach((word) {
+        _listToShow = _listToSearch
+            .where(
+              (element) => element.name!.toLowerCase().contains(
+                    word.toLowerCase(),
+                  ),
+            )
+            .toList();
+      });
     });
   }
 
@@ -49,8 +56,34 @@ class _ListProductScreenState extends State<ListProductScreen> {
     });
   }
 
+  void switchView() {
+    switch (selectedView) {
+      case 'Grid':
+        {
+          print('Grid');
+        }
+        break;
+      case 'Simple list':
+        {
+          print('Gridbbb');
+        }
+        break;
+      case 'Big Pictures':
+        {
+          print('Gridaaa');
+        }
+        break;
+      case 'List':
+        {
+          print('Grisssd');
+        }
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    switchView();
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -85,20 +118,9 @@ class _ListProductScreenState extends State<ListProductScreen> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: _listToShow.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    ProductTile(
-                        listToShow: _listToShow,
-                        index: index,
-                        id: _listToShow[index].id!),
-                  ],
-                );
-              },
-            ),
-          ),
+              child: ListBulider(
+            listToShow: _listToShow,
+          )),
         ],
       ),
     );
