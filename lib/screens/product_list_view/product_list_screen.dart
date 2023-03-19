@@ -7,7 +7,7 @@ import 'package:rcp/screens/product_list_view/list_view/list_bulider_widget.dart
 import 'package:rcp/screens/product_list_view/list_view/product_tile_widget.dart';
 import 'package:rcp/screens/product_list_view/search_field_widget.dart';
 
-import '../../product_modal/product.dart';
+import '../../product_modal/product_modal.dart';
 
 class ListProductScreen extends StatefulWidget {
   ListProductScreen(this.idCategory, this.name, {super.key});
@@ -117,7 +117,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
             ),
           ),
           Expanded(
-              child: GridBuliderView(
+              child: ListBulider(
             listToShow: _listToShow,
           )),
         ],

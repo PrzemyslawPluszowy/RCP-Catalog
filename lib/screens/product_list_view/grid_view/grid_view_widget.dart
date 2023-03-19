@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:rcp/product_modal/image.dart';
 import 'package:rcp/screens/product_list_view/list_view/product_tile_widget.dart';
 
-import '../../../product_modal/product.dart';
+import '../../../product_modal/product_modal.dart';
 
 class GridBuliderView extends StatelessWidget {
   const GridBuliderView({
@@ -32,33 +31,20 @@ class GridBuliderView extends StatelessWidget {
             child: Container(
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(10)),
-              child: Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: GridTile(
-                  footer: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(183, 0, 0, 0),
-                        borderRadius: BorderRadius.circular(120)),
-                    child: Text(
-                      listToShow[index].name as String,
-                      style: TextStyle(color: Colors.yellow),
-                    ),
+              child: GridTile(
+                footer: Container(
+                  decoration:
+                      BoxDecoration(color: Color.fromARGB(183, 0, 0, 0)),
+                  child: Text(
+                    listToShow[index].name as String,
+                    style: TextStyle(color: Colors.yellow),
                   ),
-                  header: Container(
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                    child: Image.network(
-                      listToShow[index].images![0].src as String,
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.black54,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: SizedBox()),
                 ),
+                header: Image.network(
+                  listToShow[index].images![0].src as String,
+                  fit: BoxFit.fill,
+                ),
+                child: Container(child: SizedBox()),
               ),
             ),
           );

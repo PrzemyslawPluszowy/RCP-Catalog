@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../product_modal/product.dart';
+// import '../product_modal/product.dart';
+import '../product_modal/product_modal.dart';
 
 class SortData with ChangeNotifier {
   // List<Product> getProductCategory(

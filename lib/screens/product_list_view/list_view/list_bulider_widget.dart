@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rcp/screens/product_list_view/list_view/product_tile_widget.dart';
 
-import '../../../product_modal/product.dart';
+import '../../../product_modal/product_modal.dart';
 
 class ListBulider extends StatelessWidget {
   const ListBulider({super.key, required this.listToShow});
@@ -17,7 +17,7 @@ class ListBulider extends StatelessWidget {
             ProductTile(
                 listToShow: listToShow,
                 index: index,
-                id: listToShow[index].id!),
+                id: listToShow[index].id as int),
           ],
         );
       },

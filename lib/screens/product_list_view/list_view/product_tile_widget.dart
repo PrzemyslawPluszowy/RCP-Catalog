@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rcp/product_modal/product.dart';
 import 'package:rcp/screens/product_overview/product_overview.dart';
+
+import '../../../product_modal/product_modal.dart';
 
 class ProductTile extends StatelessWidget {
   const ProductTile(
@@ -92,10 +93,10 @@ class ProductTile extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
 //     return ListTile(
-      // trailing: Text(
-      //   '${double.parse(listToShow[index].price as String).toStringAsFixed(2)}€',
-      //   style: TextStyle(color: Colors.red),
-      // ),
+// trailing: Text(
+//   '${double.parse(listToShow[index].price as String).toStringAsFixed(2)}€',
+//   style: TextStyle(color: Colors.red),
+// ),
 //       onTap: () => {},
 //       title: Text(listToShow[index].name as String),
 //       leading: Container(

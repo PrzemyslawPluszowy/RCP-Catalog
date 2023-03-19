@@ -3,10 +3,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/api_data/api.dart';
-import 'package:rcp/product_modal/image.dart';
-import 'package:rcp/product_modal/product.dart';
 
 import 'package:html/parser.dart';
+
+import '../../product_modal/product_modal.dart';
 
 class ProductOverviewScreen extends StatefulWidget {
   const ProductOverviewScreen({
@@ -45,7 +45,6 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(product.description);
     return Scaffold(
         appBar: AppBar(),
         body: Column(
@@ -100,8 +99,6 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                         style: const TextStyle(color: Colors.red, fontSize: 25),
                       ),
                     ),
-                    // '${double.parse(listToShow[index].price as String).toStringAsFixed(2)}€',
-
                     const Divider(
                       height: 2,
                     ),

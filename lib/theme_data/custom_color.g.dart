@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 const customcolor1 = Color(0xFFF80035);
 
-
 CustomColors lightCustomColors = const CustomColors(
   sourceCustomcolor1: Color(0xFFF80035),
   customcolor1: Color(0xFFBF0026),
@@ -19,8 +18,6 @@ CustomColors darkCustomColors = const CustomColors(
   customcolor1Container: Color(0xFF93001B),
   onCustomcolor1Container: Color(0xFFFFDAD8),
 );
-
-
 
 /// Defines a set of custom colors, each comprised of 4 complementary tones.
 ///
@@ -54,8 +51,10 @@ class CustomColors extends ThemeExtension<CustomColors> {
       sourceCustomcolor1: sourceCustomcolor1 ?? this.sourceCustomcolor1,
       customcolor1: customcolor1 ?? this.customcolor1,
       onCustomcolor1: onCustomcolor1 ?? this.onCustomcolor1,
-      customcolor1Container: customcolor1Container ?? this.customcolor1Container,
-      onCustomcolor1Container: onCustomcolor1Container ?? this.onCustomcolor1Container,
+      customcolor1Container:
+          customcolor1Container ?? this.customcolor1Container,
+      onCustomcolor1Container:
+          onCustomcolor1Container ?? this.onCustomcolor1Container,
     );
   }
 
@@ -65,11 +64,14 @@ class CustomColors extends ThemeExtension<CustomColors> {
       return this;
     }
     return CustomColors(
-      sourceCustomcolor1: Color.lerp(sourceCustomcolor1, other.sourceCustomcolor1, t),
+      sourceCustomcolor1:
+          Color.lerp(sourceCustomcolor1, other.sourceCustomcolor1, t),
       customcolor1: Color.lerp(customcolor1, other.customcolor1, t),
       onCustomcolor1: Color.lerp(onCustomcolor1, other.onCustomcolor1, t),
-      customcolor1Container: Color.lerp(customcolor1Container, other.customcolor1Container, t),
-      onCustomcolor1Container: Color.lerp(onCustomcolor1Container, other.onCustomcolor1Container, t),
+      customcolor1Container:
+          Color.lerp(customcolor1Container, other.customcolor1Container, t),
+      onCustomcolor1Container:
+          Color.lerp(onCustomcolor1Container, other.onCustomcolor1Container, t),
     );
   }
 
@@ -88,8 +90,10 @@ class CustomColors extends ThemeExtension<CustomColors> {
       sourceCustomcolor1: sourceCustomcolor1!.harmonizeWith(dynamic.primary),
       customcolor1: customcolor1!.harmonizeWith(dynamic.primary),
       onCustomcolor1: onCustomcolor1!.harmonizeWith(dynamic.primary),
-      customcolor1Container: customcolor1Container!.harmonizeWith(dynamic.primary),
-      onCustomcolor1Container: onCustomcolor1Container!.harmonizeWith(dynamic.primary),
+      customcolor1Container:
+          customcolor1Container!.harmonizeWith(dynamic.primary),
+      onCustomcolor1Container:
+          onCustomcolor1Container!.harmonizeWith(dynamic.primary),
     );
   }
 }

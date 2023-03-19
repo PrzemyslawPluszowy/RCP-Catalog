@@ -1,21 +1,17 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:rcp/product_modal/category.dart';
-import 'package:rcp/product_modal/image.dart';
-
-import '../product_modal/product.dart';
+import '../product_modal/product_modal.dart';
 
 class ApiData with ChangeNotifier {
   String consumerKey = 'ck_d30bf059b6cbbd2dcdd5234a419b6d31739feffc';
   String consumerSecret = 'cs_7b9b289458e9577d9e6f3e9fe959af06fa02e605';
   String baseLink = 'https://racingcustomparts.com/wp-json/wc/v3/';
-  List<Product> _rcpListAllProduct = [];
-  List<Product> _rcpCategoryList = [];
-
-  late int loadingAllProductStatus;
+  final List<Product> _rcpListAllProduct = [];
+  final List<Product> _rcpCategoryList = [];
+  int numberProduct = 0;
+  int count = 0;
 
   get listAllproduct {
     return _rcpListAllProduct;
@@ -25,61 +21,47 @@ class ApiData with ChangeNotifier {
     return _rcpCategoryList;
   }
 
-  Future<void> getRCPdata2() async {
-    List<Product> rcp = [];
-    int page = 1;
-    final url = Uri.parse(
-        '${baseLink}products?consumer_key=$consumerKey&consumer_secret=$consumerSecret&per_page=99&page=$page');
-    final responseUrl = await http.get(url);
-    var data = jsonDecode(responseUrl.body).toString();
+  Future productCount() async {
+    var url = Uri.parse(
+        'https://racingcustomparts.com/wc-api/v3/products/count?consumer_key=ck_4d9ed797bf15515474acbbe8a8c605c438c91a82&consumer_secret=cs_6fe93aea323626368f6c1631575491fcae602273&');
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      var itemCount = jsonDecode(response.body);
+      numberProduct = (itemCount['count']);
+      notifyListeners();
+    }
   }
 
   Future<void> getRCPdata() async {
     int page = 1;
     bool breakFetch = false;
-    List<Product> rcp = [];
-
     while (!breakFetch) {
-      loadingAllProductStatus = page;
-      final url = Uri.parse(
-          '${baseLink}products?consumer_key=$consumerKey&consumer_secret=$consumerSecret&per_page=99&page=$page');
-      final responseUrl = await http.get(url);
-      var dataFromPage = await json.decode(responseUrl.body) as List<dynamic>;
-      if (dataFromPage.isEmpty) {
-        breakFetch = true;
-        _rcpListAllProduct = rcp;
-        page = 1;
-        notifyListeners();
-      } else {
-        dataFromPage.forEach((product) {
-          rcp.add(
-            Product(
-              name: product['name'],
-              id: product['id'],
-              categories: (product['categories'] as List<dynamic>)
-                  .map((e) => Category.fromJson(e as Map<String, dynamic>))
-                  .toList(),
-              images: (product['images'] as List<dynamic>)
-                  .map((e) => ImageList.fromJson(e as Map<String, dynamic>))
-                  .toList(),
-              price: product['price'],
-              dateCreated: product['dateCreated'],
-              description: product['description'],
-              shortDescription: product['short_description'],
-            ),
-          );
-        });
-      }
+      var url = Uri.parse(
+          '${baseLink}products?consumer_key=$consumerKey&consumer_secret=$consumerSecret&per_page=50&page=$page');
+      final response = await http.get(url);
 
-      page++;
+      if (response.statusCode == 200) {
+        List<dynamic> getArray = await json.decode(response.body);
+        List<Product> rcp = getArray.map((e) => Product.fromJson(e)).toList();
+        if (rcp.isNotEmpty) {
+          _rcpListAllProduct.addAll(rcp);
+          page++;
+          count = _rcpListAllProduct.length;
+        } else {
+          breakFetch = true;
+          page = 1;
+          return;
+        }
+      } else {}
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   List<Product> getProductCategory(int idToSearch) {
     List<Product> categoryListByID = [];
     categoryListByID = _rcpListAllProduct
-        .where((e) => (e.categories.any((element) => element.id == idToSearch)))
+        .where(
+            (e) => (e.categories!.any((element) => element.id == idToSearch)))
         .toList();
     return categoryListByID;
   }

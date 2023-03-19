@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/api_data/api.dart';
 import 'package:rcp/screens/main_screen/main_screen.dart';
-import 'package:rcp/theme_data/color_schemes.g.dart';
-
-import '../../product_modal/product.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -14,12 +11,8 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  List<Product> dataRCP = [];
   bool _isInit = true;
   bool _isLoading = false;
-  int statusLoading = 0;
-  @override
-  void initState() {}
 
   @override
   void didChangeDependencies() async {
@@ -27,14 +20,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
       setState(() {
         _isLoading = true;
       });
-
-      Provider.of<ApiData>(context).getRCPdata().then((value) {
-        dataRCP = Provider.of<ApiData>(context, listen: false).listAllproduct;
+      Provider.of<ApiData>(context).productCount();
+      Provider.of<ApiData>(context, listen: true).getRCPdata().then((value) {
         setState(() {
           _isLoading = false;
         });
       });
     }
+
     _isInit = false;
     super.didChangeDependencies();
   }
@@ -57,20 +50,28 @@ class _LoadingScreenState extends State<LoadingScreen> {
           _isLoading
               ? Center(
                   child: Column(
-                    children: const [
-                      CircularProgressIndicator(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const CircularProgressIndicator(
                         color: Colors.white,
                       ),
-                      Padding(padding: EdgeInsets.only(bottom: 15)),
-                      Text(
+                      const Padding(padding: EdgeInsets.only(bottom: 15)),
+                      const Text(
                         "Loading catalog RCP",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
-                      Text(
+                      const Text(
                         'please wait a moment',
                         style: TextStyle(
                             color: Colors.white,
                             decorationStyle: TextDecorationStyle.dashed),
+                      ),
+                      Consumer<ApiData>(
+                        builder: (context, value, child) => Text(
+                            'Getting product ${value.count}/${value.numberProduct - 2}',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                decorationStyle: TextDecorationStyle.dashed)),
                       ),
                     ],
                   ),
