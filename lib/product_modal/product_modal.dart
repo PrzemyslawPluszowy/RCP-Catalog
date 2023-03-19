@@ -63,7 +63,7 @@ class Product {
     this.taxClass,
     this.manageStock,
     this.stockQuantity,
-    this.backorders,
+    // this.backorders,
     this.backordersAllowed,
     this.backordered,
     this.lowStockAmount,
@@ -135,7 +135,7 @@ class Product {
   final String? taxClass;
   final bool? manageStock;
   final dynamic stockQuantity;
-  final Backorders? backorders;
+  // final Backorders? backorders;
   final bool? backordersAllowed;
   final bool? backordered;
   final dynamic lowStockAmount;
@@ -216,7 +216,7 @@ class Product {
         taxClass: json["tax_class"],
         manageStock: json["manage_stock"],
         stockQuantity: json["stock_quantity"],
-        backorders: backordersValues.map[json["backorders"]]!,
+        // backorders: backordersValues.map[json["backorders"]]!,
         backordersAllowed: json["backorders_allowed"],
         backordered: json["backordered"],
         lowStockAmount: json["low_stock_amount"],
@@ -276,9 +276,7 @@ class Product {
         stockStatus: stockStatusValues.map[json["stock_status"]]!,
         hasOptions: json["has_options"],
         yoastHead: json["yoast_head"],
-        // yoastHeadJson: json["yoast_head_json"] == null
-        // ? null
-        // : YoastHeadJson.fromJson(json["yoast_head_json"]),
+
         links: json["_links"] == null ? null : Links.fromJson(json["_links"]),
       );
 
@@ -322,7 +320,7 @@ class Product {
         "tax_class": taxClass,
         "manage_stock": manageStock,
         "stock_quantity": stockQuantity,
-        "backorders": backordersValues.reverse[backorders],
+        // "backorders": backordersValues.reverse[backorders],
         "backorders_allowed": backordersAllowed,
         "backordered": backordered,
         "low_stock_amount": lowStockAmount,
@@ -351,8 +349,8 @@ class Product {
             ? []
             : List<dynamic>.from(tags!.map((x) => x.toJson())),
         "images": images == null
-            ? []
-            : List<dynamic>.from(images!.map((x) => x.toJson())),
+            ? defaultImageList
+            : List<dynamic>.from(images.map((x) => x.toJson())),
         "attributes": attributes == null
             ? []
             : List<dynamic>.from(attributes!.map((x) => x)),
@@ -381,9 +379,9 @@ class Product {
       };
 }
 
-enum Backorders { NO }
+// enum Backorders { NO }
 
-final backordersValues = EnumValues({"no": Backorders.NO});
+// final backordersValues = EnumValues({"no": Backorders.NO});
 
 enum CatalogVisibility { VISIBLE }
 

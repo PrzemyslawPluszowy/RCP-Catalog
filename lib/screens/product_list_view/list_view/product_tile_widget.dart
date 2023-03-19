@@ -13,13 +13,13 @@ class ProductTile extends StatelessWidget {
   final int index;
   final int id;
 
-  String imageLinkValidator(int index) {
-    if (listToShow[index].images?[0] == null) {
-      return 'https://racingcustomparts.com/wp-content/uploads/2020/11/If-you-can%E2%80%99t-find-parts-for-your-racecar-we-can-do-it2.png';
-    } else {
-      return listToShow[index].images![0].src as String;
-    }
-  }
+  // String imageLinkValidator(int index) {
+  //   if (listToShow[index].images.first == null) {
+  //     return 'https://racingcustomparts.com/wp-content/uploads/2020/11/If-you-can%E2%80%99t-find-parts-for-your-racecar-we-can-do-it2.png';
+  //   } else {
+  //     return listToShow[index].images.first.src as String;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class ProductTile extends StatelessWidget {
                   width: 150,
                   height: 120,
                   child: Image.network(
-                    imageLinkValidator(index),
+                    listToShow[index].images.first as String,
                     fit: BoxFit.fill,
                     frameBuilder:
                         (context, child, frame, wasSynchronouslyLoaded) {

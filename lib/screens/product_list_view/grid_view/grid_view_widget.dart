@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:rcp/screens/product_list_view/list_view/product_tile_widget.dart';
-
 import '../../../product_modal/product_modal.dart';
 
 class GridBuliderView extends StatelessWidget {
@@ -11,17 +9,11 @@ class GridBuliderView extends StatelessWidget {
   }) : super(key: key);
   final List<Product> listToShow;
 
-  // List<ImageList> get imageList {
-  //   List<ImageList> images = [];
-  //   listToShow.map((e) => e.images);
-  //   return images;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
         itemCount: listToShow.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 4 / 3,
         ),
@@ -34,17 +26,17 @@ class GridBuliderView extends StatelessWidget {
               child: GridTile(
                 footer: Container(
                   decoration:
-                      BoxDecoration(color: Color.fromARGB(183, 0, 0, 0)),
+                      const BoxDecoration(color: Color.fromARGB(183, 0, 0, 0)),
                   child: Text(
                     listToShow[index].name as String,
-                    style: TextStyle(color: Colors.yellow),
+                    style: const TextStyle(color: Colors.yellow),
                   ),
                 ),
                 header: Image.network(
-                  listToShow[index].images![0].src as String,
+                  listToShow[index].images.first.src as String,
                   fit: BoxFit.fill,
                 ),
-                child: Container(child: SizedBox()),
+                child: const SizedBox(),
               ),
             ),
           );

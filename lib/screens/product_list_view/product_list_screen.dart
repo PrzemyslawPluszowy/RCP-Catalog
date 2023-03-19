@@ -9,9 +9,9 @@ import 'package:rcp/screens/product_list_view/search_field_widget.dart';
 import '../../product_modal/product_modal.dart';
 
 class ListProductScreen extends StatefulWidget {
-  ListProductScreen(this.idCategory, this.name, {super.key});
-  int? idCategory;
-  String name = '';
+  const ListProductScreen(this.idCategory, this.name, {super.key});
+  final int? idCategory;
+  final String name;
   static const String pageRoute = '/list-all';
   @override
   State<ListProductScreen> createState() => _ListProductScreenState();
@@ -37,7 +37,6 @@ class _ListProductScreenState extends State<ListProductScreen> {
 
   void search(String value) {
     setState(() {
-      List<String> wordList = [];
       value.split(' ').forEach((word) {
         _listToShow = _listToSearch
             .where(
@@ -71,7 +70,6 @@ class _ListProductScreenState extends State<ListProductScreen> {
         {
           return GridBuliderView(listToShow: _listToShow);
         }
-        break;
       case 'List':
         {
           return ListBulider(
@@ -91,7 +89,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
         backgroundColor: Colors.grey[200],
-        title: Text(widget.name as String),
+        title: Text(widget.name),
       ),
       body: Column(
         children: [

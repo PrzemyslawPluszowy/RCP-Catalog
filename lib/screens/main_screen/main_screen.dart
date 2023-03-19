@@ -17,7 +17,7 @@ class MainScreen extends StatelessWidget {
   MainScreen({super.key});
   static const pageRoute = '/main';
 
-  List<MainCategory> category = [
+  final List<MainCategory> category = [
     MainCategory(
         assetImage: 'assets/images/category/engine-new.jpg',
         categoryName: 'Engine',
@@ -61,7 +61,7 @@ class MainScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ListProductScreen(
+                              builder: (context) => const ListProductScreen(
                                 null,
                                 'All Product',
                               ),
