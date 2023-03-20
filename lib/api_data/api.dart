@@ -3,11 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../product_modal/product_modal.dart';
+import 'api_key/api_key.dart';
 
 class ApiData with ChangeNotifier {
-  String consumerKey = 'ck_d30bf059b6cbbd2dcdd5234a419b6d31739feffc';
-  String consumerSecret = 'cs_7b9b289458e9577d9e6f3e9fe959af06fa02e605';
-  String baseLink = 'https://racingcustomparts.com/wp-json/wc/v3/';
   final List<Product> _rcpListAllProduct = [];
   final List<Product> _rcpCategoryList = [];
   int numberProduct = 0;
@@ -23,7 +21,7 @@ class ApiData with ChangeNotifier {
 
   Future productCount() async {
     var url = Uri.parse(
-        'https://racingcustomparts.com/wc-api/v3/products/count?consumer_key=ck_4d9ed797bf15515474acbbe8a8c605c438c91a82&consumer_secret=cs_6fe93aea323626368f6c1631575491fcae602273&');
+        '${baseLink}wc-api/v3/products/count?consumer_key=$consumerKey&consumer_secret=$consumerSecret');
     final response = await http.get(url);
     if (response.statusCode == 200) {
       var itemCount = jsonDecode(response.body);
@@ -37,7 +35,7 @@ class ApiData with ChangeNotifier {
     bool breakFetch = false;
     while (!breakFetch) {
       var url = Uri.parse(
-          '${baseLink}products?consumer_key=$consumerKey&consumer_secret=$consumerSecret&per_page=50&page=$page');
+          '${baseLink}wp-json/wc/v3/products?consumer_key=$consumerKey&consumer_secret=$consumerSecret&per_page=50&page=$page');
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
