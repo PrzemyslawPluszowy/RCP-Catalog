@@ -30,52 +30,13 @@ class ProductSimpleTile extends StatelessWidget {
           },
           child: ListTile(
               title: Text(listToShow[index].name as String),
-              leading: Container(
+              leading: SizedBox(
                 height: 50,
                 width: 80,
                 child: ImgageLoading(
+                    boxFit: BoxFit.fill,
                     imageSrc: listToShow[index].images.first.src as String),
               ))),
     );
   }
 }
-
-
-
-
-
-// Container(
-//             color: Colors.white,
-//             height: 120,
-//             width: double.infinity,
-//             child: Row(
-//               children: [
-//                 SizedBox(
-//                     width: 150,
-//                     height: 120,
-//                     child: ImgageLoading(
-//                         imageSrc:
-//                             listToShow[index].images.first.src as String)),
-//                 Expanded(
-//                   child: Padding(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: Column(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//                         Text(
-//                           listToShow[index].name as String,
-//                           maxLines: 2,
-//                         ),
-//                         Align(
-//                           alignment: Alignment.bottomRight,
-//                           child: Text(
-//                             '${double.parse(listToShow[index].price as String).toStringAsFixed(2)}€',
-//                             style: const TextStyle(color: Colors.red),
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 )
-//               ],
-//             )),

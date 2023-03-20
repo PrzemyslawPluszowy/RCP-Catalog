@@ -1,8 +1,6 @@
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
 const customcolor1 = Color(0xFFEBEBEB);
-
 
 CustomColors lightCustomColors = const CustomColors(
   sourceCustomcolor1: Color(0xFFEBEBEB),
@@ -19,8 +17,6 @@ CustomColors darkCustomColors = const CustomColors(
   customcolor1Container: Color(0xFF004F58),
   onCustomcolor1Container: Color(0xFF97F0FF),
 );
-
-
 
 /// Defines a set of custom colors, each comprised of 4 complementary tones.
 ///
@@ -54,8 +50,10 @@ class CustomColors extends ThemeExtension<CustomColors> {
       sourceCustomcolor1: sourceCustomcolor1 ?? this.sourceCustomcolor1,
       customcolor1: customcolor1 ?? this.customcolor1,
       onCustomcolor1: onCustomcolor1 ?? this.onCustomcolor1,
-      customcolor1Container: customcolor1Container ?? this.customcolor1Container,
-      onCustomcolor1Container: onCustomcolor1Container ?? this.onCustomcolor1Container,
+      customcolor1Container:
+          customcolor1Container ?? this.customcolor1Container,
+      onCustomcolor1Container:
+          onCustomcolor1Container ?? this.onCustomcolor1Container,
     );
   }
 
@@ -65,11 +63,14 @@ class CustomColors extends ThemeExtension<CustomColors> {
       return this;
     }
     return CustomColors(
-      sourceCustomcolor1: Color.lerp(sourceCustomcolor1, other.sourceCustomcolor1, t),
+      sourceCustomcolor1:
+          Color.lerp(sourceCustomcolor1, other.sourceCustomcolor1, t),
       customcolor1: Color.lerp(customcolor1, other.customcolor1, t),
       onCustomcolor1: Color.lerp(onCustomcolor1, other.onCustomcolor1, t),
-      customcolor1Container: Color.lerp(customcolor1Container, other.customcolor1Container, t),
-      onCustomcolor1Container: Color.lerp(onCustomcolor1Container, other.onCustomcolor1Container, t),
+      customcolor1Container:
+          Color.lerp(customcolor1Container, other.customcolor1Container, t),
+      onCustomcolor1Container:
+          Color.lerp(onCustomcolor1Container, other.onCustomcolor1Container, t),
     );
   }
 
@@ -79,7 +80,6 @@ class CustomColors extends ThemeExtension<CustomColors> {
   /// See also:
   ///   * <https://m3.material.io/styles/color/the-color-system/custom-colors#harmonization>
   CustomColors harmonized(ColorScheme dynamic) {
-    return copyWith(
-    );
+    return copyWith();
   }
 }

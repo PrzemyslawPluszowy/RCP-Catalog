@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rcp/screens/product_overview/product_overview.dart';
 import 'package:rcp/utils/image_network.dart';
-
 import '../../../product_modal/product_modal.dart';
 
 class ProductTile extends StatelessWidget {
@@ -29,7 +28,17 @@ class ProductTile extends StatelessWidget {
               ));
         },
         child: Container(
-            color: Colors.white,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surfaceVariant,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  offset: const Offset(2, 2),
+                ),
+              ],
+            ),
             height: 120,
             width: double.infinity,
             child: Row(
@@ -38,8 +47,9 @@ class ProductTile extends StatelessWidget {
                     width: 150,
                     height: 120,
                     child: ImgageLoading(
-                        imageSrc:
-                            listToShow[index].images.first.src as String)),
+                      imageSrc: listToShow[index].images.first.src as String,
+                      boxFit: BoxFit.cover,
+                    )),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
             colorScheme: darkColorScheme ?? _defaultDarkColorScheme,
             useMaterial3: true,
           ),
-          themeMode: ThemeMode.light,
+          themeMode: ThemeMode.dark,
           routes: {MainScreen.pageRoute: (context) => MainScreen()},
           home: const LoadingScreen(),
         ));

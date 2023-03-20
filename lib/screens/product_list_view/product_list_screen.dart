@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/api_data/api.dart';
+import 'package:rcp/screens/product_list_view/big_picture_view.dart/big_picture_bulider.dart';
+import 'package:rcp/screens/product_list_view/dropdown_sort_widget.dart';
 import 'package:rcp/screens/product_list_view/dropdown_view_widget.dart';
 import 'package:rcp/screens/product_list_view/grid_view/grid_view_widget.dart';
 import 'package:rcp/screens/product_list_view/list_view/list_bulider_widget.dart';
@@ -10,9 +12,13 @@ import 'package:rcp/screens/product_list_view/simple_list_view/simple_list_widge
 import '../../product_modal/product_modal.dart';
 
 class ListProductScreen extends StatefulWidget {
-  const ListProductScreen(this.idCategory, this.name, {super.key});
+  const ListProductScreen(
+    this.idCategory,
+    this.categoryName, {
+    super.key,
+  });
   final int? idCategory;
-  final String name;
+  final String categoryName;
   static const String pageRoute = '/list-all';
   @override
   State<ListProductScreen> createState() => _ListProductScreenState();
@@ -21,7 +27,8 @@ class ListProductScreen extends StatefulWidget {
 class _ListProductScreenState extends State<ListProductScreen> {
   List<Product> _listToShow = [];
   List<Product> _listToSearch = [];
-  String selectedView = "Grid";
+  String selectedView = "List";
+  late String sortSwitch;
 
   @override
   void initState() {
@@ -56,8 +63,14 @@ class _ListProductScreenState extends State<ListProductScreen> {
     });
   }
 
+  void getSelectedSwitch(selected) {
+    setState(() {
+      sortSwitch = selected;
+      sortSwitchFunc();
+    });
+  }
+
   Widget switchView() {
-    print(selectedView);
     switch (selectedView) {
       case 'Grid':
         {
@@ -70,7 +83,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
 
       case 'Big Pictures':
         {
-          return GridBuliderView(listToShow: _listToShow);
+          return BigPictureBulider(listToShow: _listToShow);
         }
       case 'List':
         {
@@ -85,19 +98,56 @@ class _ListProductScreenState extends State<ListProductScreen> {
     }
   }
 
+  void sortSwitchFunc() {
+    switch (sortSwitch) {
+      case 'Sort by name up':
+        {
+          _listToShow.sort(
+              (a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+        }
+        ;
+
+        break;
+      case 'Sort by name down':
+        {
+          _listToShow.sort(
+              (a, b) => b.name!.toLowerCase().compareTo(a.name!.toLowerCase()));
+        }
+        break;
+
+      case 'Sort by date up':
+        {
+          _listToShow.sort(
+            (a, b) => b.dateCreated!.millisecondsSinceEpoch
+                .compareTo(a.dateCreated!.millisecondsSinceEpoch),
+          );
+        }
+        break;
+      case 'Sort by date down':
+        {
+          _listToShow.sort(
+            (a, b) => a.dateCreated!.millisecondsSinceEpoch
+                .compareTo(b.dateCreated!.millisecondsSinceEpoch),
+          );
+        }
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
-        title: Text(widget.name),
+        title: Text(widget.categoryName),
       ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: SearchField(
+              categoryName: widget.categoryName,
               search: search,
             ),
           ),
@@ -106,9 +156,10 @@ class _ListProductScreenState extends State<ListProductScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                DropdownSort(callbackSort: getSelectedSwitch),
                 DropdownView(
                   callbackView: getSelectedView,
-                )
+                ),
               ],
             ),
           ),

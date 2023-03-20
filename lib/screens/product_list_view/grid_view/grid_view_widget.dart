@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../product_modal/product_modal.dart';
+import '../../product_overview/product_overview.dart';
 
 class GridBuliderView extends StatelessWidget {
   const GridBuliderView({
@@ -20,23 +21,33 @@ class GridBuliderView extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
-              child: GridTile(
-                footer: Container(
-                  decoration:
-                      const BoxDecoration(color: Color.fromARGB(183, 0, 0, 0)),
-                  child: Text(
-                    listToShow[index].name as String,
-                    style: const TextStyle(color: Colors.yellow),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductOverviewScreen(
+                          id: listToShow[index].id as int),
+                    ));
+              },
+              child: Container(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                child: GridTile(
+                  footer: Container(
+                    decoration: const BoxDecoration(
+                        color: Color.fromARGB(183, 0, 0, 0)),
+                    child: Text(
+                      listToShow[index].name as String,
+                      style: const TextStyle(color: Colors.yellow),
+                    ),
                   ),
+                  header: Image.network(
+                    listToShow[index].images.first.src as String,
+                    fit: BoxFit.fill,
+                  ),
+                  child: const SizedBox(),
                 ),
-                header: Image.network(
-                  listToShow[index].images.first.src as String,
-                  fit: BoxFit.fill,
-                ),
-                child: const SizedBox(),
               ),
             ),
           );

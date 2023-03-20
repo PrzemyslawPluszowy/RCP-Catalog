@@ -47,13 +47,12 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.grey[200],
+          backgroundColor: Theme.of(context).colorScheme.background,
         ),
         body: Column(
           children: [
             Container(
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 234, 234, 234)),
+              decoration: const BoxDecoration(),
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: CarouselSlider.builder(
                 itemCount: imagesList.length,
