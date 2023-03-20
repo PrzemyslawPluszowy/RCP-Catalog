@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rcp/screens/product_overview/product_overview.dart';
+import 'package:rcp/utils/image_network.dart';
 
 import '../../../product_modal/product_modal.dart';
 
@@ -12,14 +13,6 @@ class ProductTile extends StatelessWidget {
   final List<Product> listToShow;
   final int index;
   final int id;
-
-  // String imageLinkValidator(int index) {
-  //   if (listToShow[index].images.first == null) {
-  //     return 'https://racingcustomparts.com/wp-content/uploads/2020/11/If-you-can%E2%80%99t-find-parts-for-your-racecar-we-can-do-it2.png';
-  //   } else {
-  //     return listToShow[index].images.first.src as String;
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +27,6 @@ class ProductTile extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => ProductOverviewScreen(id: id),
               ));
-          print(id);
         },
         child: Container(
             color: Colors.white,
@@ -43,26 +35,11 @@ class ProductTile extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(
-                  width: 150,
-                  height: 120,
-                  child: Image.network(
-                    listToShow[index].images.first as String,
-                    fit: BoxFit.fill,
-                    frameBuilder:
-                        (context, child, frame, wasSynchronouslyLoaded) {
-                      return child;
-                    },
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) {
-                        return child;
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
-                  ),
-                ),
+                    width: 150,
+                    height: 120,
+                    child: ImgageLoading(
+                        imageSrc:
+                            listToShow[index].images.first.src as String)),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -90,31 +67,3 @@ class ProductTile extends StatelessWidget {
     );
   }
 }
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListTile(
-// trailing: Text(
-//   '${double.parse(listToShow[index].price as String).toStringAsFixed(2)}€',
-//   style: TextStyle(color: Colors.red),
-// ),
-//       onTap: () => {},
-//       title: Text(listToShow[index].name as String),
-//       leading: Container(
-//         width: 100,
-//         height: 100,
-//         child: Image.network(imageLinkValidator(index), fit: BoxFit.cover,
-//             frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-//           return child;
-//         }, loadingBuilder: (context, child, loadingProgress) {
-//           if (loadingProgress == null) {
-//             return child;
-//           } else {
-//             return const Center(
-//               child: CircularProgressIndicator(),
-//             );
-//           }
-//         }),
-//       ),
-//     );
-//   }
-// }

@@ -43,7 +43,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[200],
+        backgroundColor: Theme.of(context).colorScheme.background,
         automaticallyImplyLeading: false,
         title: const Text("Wlcome to racing custom parts"),
       ),

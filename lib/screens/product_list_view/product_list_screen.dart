@@ -5,6 +5,7 @@ import 'package:rcp/screens/product_list_view/dropdown_view_widget.dart';
 import 'package:rcp/screens/product_list_view/grid_view/grid_view_widget.dart';
 import 'package:rcp/screens/product_list_view/list_view/list_bulider_widget.dart';
 import 'package:rcp/screens/product_list_view/search_field_widget.dart';
+import 'package:rcp/screens/product_list_view/simple_list_view/simple_list_widget.dart';
 
 import '../../product_modal/product_modal.dart';
 
@@ -56,6 +57,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
   }
 
   Widget switchView() {
+    print(selectedView);
     switch (selectedView) {
       case 'Grid':
         {
@@ -63,7 +65,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
         }
       case 'Simple list':
         {
-          return GridBuliderView(listToShow: _listToShow);
+          return SimpleListView(listToShow: _listToShow);
         }
 
       case 'Big Pictures':
@@ -78,7 +80,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
         }
       default:
         {
-          return ListBulider(listToShow: _listToShow);
+          return SimpleListView(listToShow: _listToShow);
         }
     }
   }
@@ -86,9 +88,9 @@ class _ListProductScreenState extends State<ListProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.grey[200],
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: Text(widget.name),
       ),
       body: Column(

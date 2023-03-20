@@ -13,7 +13,7 @@ class SearchField extends StatelessWidget {
     return TextField(
         decoration: const InputDecoration(
           filled: true,
-          fillColor: Colors.white,
+          // fillColor: Theme.of(context).colorScheme.primary,
           border: OutlineInputBorder(),
           hintText: 'Enter a search term',
         ),

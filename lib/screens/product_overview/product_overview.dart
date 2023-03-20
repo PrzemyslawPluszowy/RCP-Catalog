@@ -85,7 +85,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 4),
+                      margin: const EdgeInsets.symmetric(vertical: 4),
                       child: Center(
                         child: Text(
                           product.name as String,
