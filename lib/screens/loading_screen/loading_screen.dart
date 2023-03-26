@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:rcp/api_data/api.dart';
+import 'package:rcp/api_data/rcp_data_provider.dart';
+import 'package:rcp/api_data/test_controller.dart';
 import 'package:rcp/screens/main_screen/main_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -13,6 +15,7 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen> {
   bool _isInit = true;
   bool _isLoading = false;
+  showSnackBar2(err) {}
 
   @override
   void didChangeDependencies() async {
@@ -20,14 +23,39 @@ class _LoadingScreenState extends State<LoadingScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<ApiData>(context).productCount();
-      Provider.of<ApiData>(context, listen: true).getRCPdata().then((value) {
-        setState(() {
-          _isLoading = false;
-        });
-      });
+      try {
+        await Provider.of<ApiData>(context, listen: false)
+            .initData()
+            .then((value) => setState(() {
+                  _isLoading = false;
+                }));
+      } catch (error) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Samething going wrong :('),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('$error'),
+                  Text('%^%^%&^&&'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Approve'),
+                onPressed: () {
+                  Hive.resetAdapters();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoadingScreen()));
+                },
+              ),
+            ],
+          ),
+        );
+      }
     }
-
     _isInit = false;
     super.didChangeDependencies();
   }

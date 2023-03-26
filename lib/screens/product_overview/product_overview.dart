@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rcp/api_data/api.dart';
+import 'package:rcp/api_data/rcp_data_provider.dart';
 
 import 'package:html/parser.dart';
 
@@ -30,8 +30,8 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
     super.initState();
   }
 
-  List<ImageList> get imagesList {
-    List<ImageList> imagesList = product.images;
+  List<ImageList>? get imagesList {
+    List<ImageList>? imagesList = product.images;
 
     return imagesList;
   }
@@ -55,7 +55,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
               decoration: const BoxDecoration(),
               padding: const EdgeInsets.symmetric(vertical: 20),
               child: CarouselSlider.builder(
-                itemCount: imagesList.length,
+                itemCount: imagesList!.length,
                 itemBuilder: (context, index, realIndex) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 1),
@@ -63,7 +63,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15)),
                       child: Image.network(
-                        imagesList[index].src as String,
+                        imagesList![index].src as String,
                         fit: BoxFit.cover,
                       ),
                     ),

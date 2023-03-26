@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ImgageLoading extends StatelessWidget {
   const ImgageLoading(
       {super.key, required this.imageSrc, required this.boxFit});
   final String imageSrc;
   final BoxFit boxFit;
+
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      imageSrc,
+    return CachedNetworkImage(
       fit: boxFit,
-      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-        return child;
-      },
-      loadingBuilder: (context, child, loadingProgress) {
-        if (loadingProgress == null) {
-          return child;
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
+      imageUrl: imageSrc,
+      progressIndicatorBuilder: (context, url, downloadProgress) =>
+          CircularProgressIndicator(value: downloadProgress.progress),
+      errorWidget: (context, url, error) => Icon(Icons.error),
     );
   }
 }

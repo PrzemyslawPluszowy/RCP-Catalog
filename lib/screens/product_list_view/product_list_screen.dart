@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rcp/api_data/api.dart';
+import 'package:rcp/api_data/rcp_data_provider.dart';
 import 'package:rcp/screens/product_list_view/big_picture_view.dart/big_picture_bulider.dart';
 import 'package:rcp/screens/product_list_view/dropdown_sort_widget.dart';
 import 'package:rcp/screens/product_list_view/dropdown_view_widget.dart';
@@ -105,7 +105,6 @@ class _ListProductScreenState extends State<ListProductScreen> {
           _listToShow.sort(
               (a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
         }
-        ;
 
         break;
       case 'Sort by name down':

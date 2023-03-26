@@ -1,8 +1,11 @@
 // To parse this JSON data, do
 //
 //     final welcome = welcomeFromJson(jsonString);
-
 import 'dart:convert';
+
+import 'package:hive/hive.dart';
+// import 'package:hive_generator/hive_generator.dart';
+part 'product_modal.g.dart';
 
 List<Product> welcomeFromJson(String str) =>
     List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));
@@ -25,9 +28,10 @@ List<Category> defaultCategory = [
   Category(id: 99999, name: 'error, no data', slug: '')
 ];
 
+@HiveType(typeId: 0, adapterName: 'Prod')
 class Product {
   Product({
-    required this.id,
+    this.id,
     this.name,
     this.slug,
     this.permalink,
@@ -38,26 +42,37 @@ class Product {
     this.description,
     this.shortDescription,
     this.price,
-    this.categories,
-    this.tags,
+    required this.categories,
+    required this.tags,
     required this.images,
   });
-
+  @HiveField(0)
   final int? id;
+  @HiveField(1)
   final String? name;
+  @HiveField(2)
   final String? slug;
+  @HiveField(3)
   final String? permalink;
+  @HiveField(4)
   final DateTime? dateCreated;
+  @HiveField(5)
   final DateTime? dateCreatedGmt;
+  @HiveField(6)
   final DateTime? dateModified;
+  @HiveField(7)
   final DateTime? dateModifiedGmt;
-
+  @HiveField(8)
   final String? description;
+  @HiveField(9)
   final String? shortDescription;
+  @HiveField(10)
   final String? price;
-
-  final List<Category>? categories;
-  final List<Category>? tags;
+  @HiveField(11)
+  final List<Category> categories;
+  @HiveField(12)
+  final List<Category> tags;
+  @HiveField(13)
   final List<ImageList> images;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
@@ -108,25 +123,29 @@ class Product {
         "price": price,
         "categories": categories == null
             ? []
-            : List<dynamic>.from(categories!.map((x) => x.toJson())),
-        "tags": tags == null
-            ? []
-            : List<dynamic>.from(tags!.map((x) => x.toJson())),
+            : List<dynamic>.from(categories.map((x) => x.toJson())),
+        "tags":
+            tags == null ? [] : List<dynamic>.from(tags.map((x) => x.toJson())),
         "images": images == null
             ? defaultImageList
             : List<dynamic>.from(images.map((x) => x.toJson())),
       };
 }
 
+@HiveType(
+  typeId: 1,
+)
 class Category {
   Category({
     this.id,
     this.name,
     this.slug,
   });
-
+  @HiveField(0)
   final int? id;
+  @HiveField(1)
   final String? name;
+  @HiveField(2)
   final String? slug;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
@@ -142,6 +161,7 @@ class Category {
       };
 }
 
+@HiveType(typeId: 2)
 class ImageList {
   ImageList({
     this.id,
@@ -153,14 +173,21 @@ class ImageList {
     this.name,
     this.alt,
   });
-
+  @HiveField(0)
   final int? id;
+  @HiveField(1)
   final DateTime? dateCreated;
+  @HiveField(2)
   final DateTime? dateCreatedGmt;
+  @HiveField(3)
   final DateTime? dateModified;
+  @HiveField(4)
   final DateTime? dateModifiedGmt;
+  @HiveField(5)
   final String? src;
+  @HiveField(6)
   final String? name;
+  @HiveField(7)
   final String? alt;
 
   factory ImageList.fromJson(Map<String, dynamic> json) => ImageList(
