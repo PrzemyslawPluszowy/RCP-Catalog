@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
+
           theme: ThemeData(
             colorScheme: lightColorScheme ?? _defaultLightColorScheme,
             useMaterial3: true,

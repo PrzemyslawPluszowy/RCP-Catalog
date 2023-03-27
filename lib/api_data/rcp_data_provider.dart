@@ -21,6 +21,8 @@ class ApiData with ChangeNotifier {
 
   Future<void> initData() async {
 //init local DB
+    WidgetsFlutterBinding.ensureInitialized();
+
     Hive.registerAdapter(Prod());
     Hive.registerAdapter(CategoryAdapter());
     Hive.registerAdapter(ImageListAdapter());
@@ -29,7 +31,8 @@ class ApiData with ChangeNotifier {
     var box = await Hive.openBox<Product>('rcpData');
     var localRCP = box.values.toList();
     // check internet connection
-    isInternetConnection = await InternetConnectionChecker().hasConnection;
+    isInternetConnection =true;
+    // await InternetConnectionChecker().hasConnection;
     // add missing products
     if (isInternetConnection == true) {
       await productCount();
