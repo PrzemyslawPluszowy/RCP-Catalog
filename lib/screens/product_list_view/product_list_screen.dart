@@ -44,16 +44,15 @@ class _ListProductScreenState extends State<ListProductScreen> {
   }
 
   void search(String value) {
+    List<Product> searchList = [];
+    List<String> listString = value.split(' ');
+    searchList.addAll((_listToSearch.where((product) {
+      return listString.every((element) =>
+          product.name!.toLowerCase().contains(element.toLowerCase()));
+    }).toList()));
+
     setState(() {
-      value.split(' ').forEach((word) {
-        _listToShow = _listToSearch
-            .where(
-              (element) => element.name!.toLowerCase().contains(
-                    word.toLowerCase(),
-                  ),
-            )
-            .toList();
-      });
+      _listToShow = searchList;
     });
   }
 
@@ -105,6 +104,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
           _listToShow.sort(
               (a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
         }
+        ;
 
         break;
       case 'Sort by name down':
