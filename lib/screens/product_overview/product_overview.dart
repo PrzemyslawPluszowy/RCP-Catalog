@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rcp/api_data/rcp_data_provider.dart';
 
 import 'package:html/parser.dart';
-import 'package:rcp/screens/loading_screen/loading_screen.dart';
+import 'package:rcp/utils/extension.dart';
 import 'package:rcp/utils/image_network.dart';
 
 import '../../product_modal/product_modal.dart';
@@ -47,58 +47,75 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double height = AppBar().preferredSize.height;
+
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(
+        title: Text(
+          '${product.name}',
+          style: Theme.of(context).textTheme.labelMedium,
         ),
-        body: Column(
-          children: [
-            Container(
-              decoration: const BoxDecoration(),
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: CarouselSlider.builder(
-                itemCount: imagesList!.length,
-                itemBuilder: (context, index, realIndex) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 1),
-                    child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15)),
+        backgroundColor: Theme.of(context).colorScheme.background,
+      ),
+      body: Column(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.35 - height,
+            decoration: const BoxDecoration(),
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: CarouselSlider.builder(
+              itemCount: imagesList!.length,
+              itemBuilder: (context, index, realIndex) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 1),
+                  child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
                         child: ImgageLoading(
                             imageSrc: imagesList![index].src as String,
-                            boxFit: BoxFit.cover)),
-                  );
-                },
-                options: CarouselOptions(
-                  height: 250,
-                  aspectRatio: 3.0,
-                  enlargeCenterPage: true,
-                  enlargeStrategy: CenterPageEnlargeStrategy.scale,
-                  enlargeFactor: 0.2,
-                ),
+                            boxFit: BoxFit.cover),
+                      )),
+                );
+              },
+              options: CarouselOptions(
+                height: 250,
+                aspectRatio: 3.0,
+                enlargeCenterPage: true,
+                enlargeStrategy: CenterPageEnlargeStrategy.scale,
+                enlargeFactor: 0.2,
               ),
             ),
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.65 - height,
+              width: double.infinity,
+              child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Container(
+                      width: double.infinity,
                       margin: const EdgeInsets.symmetric(vertical: 4),
-                      child: Center(
-                        child: Text(
-                          product.name as String,
-                          maxLines: 2,
-                          style: const TextStyle(fontSize: 17),
+                      child: Text(
+                        product.name!.toUpperCase(),
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 20,
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        '${double.parse(product.price as String).toStringAsFixed(2)}€',
-                        style: const TextStyle(color: Colors.red, fontSize: 25),
-                      ),
+                    Text(
+                      '${double.parse(product.price).toStringAsFixed(2)}€',
+                      style: const TextStyle(color: Colors.red, fontSize: 20),
+                    ),
+                    Text(
+                      '${product.price.addVat()}€ inc.VAT',
+                      style: const TextStyle(color: Colors.blue, fontSize: 15),
                     ),
                     const Divider(
                       height: 2,
@@ -110,14 +127,21 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                         alignment: Alignment.centerLeft,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(_parseHtmlString(
-                              product.shortDescription as String)),
+                          child: Text(
+                              _parseHtmlString(
+                                  product.shortDescription as String),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(color: Colors.grey[800])),
                         ))
                   ],
                 ),
               ),
-            )
-          ],
-        ));
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

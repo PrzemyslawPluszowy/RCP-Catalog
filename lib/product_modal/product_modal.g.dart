@@ -27,7 +27,7 @@ class Prod extends TypeAdapter<Product> {
       dateModifiedGmt: fields[7] as DateTime?,
       description: fields[8] as String?,
       shortDescription: fields[9] as String?,
-      price: fields[10] as String?,
+      price: fields[10] as String,
       categories: (fields[11] as List).cast<Category>(),
       tags: (fields[12] as List).cast<Category>(),
       images: (fields[13] as List).cast<ImageList>(),

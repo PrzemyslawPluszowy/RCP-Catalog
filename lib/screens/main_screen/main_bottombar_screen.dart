@@ -16,7 +16,7 @@ class MainCategory {
 }
 
 class MainScreenBootomBar extends StatefulWidget {
-  MainScreenBootomBar({super.key});
+  const MainScreenBootomBar({super.key});
   static const pageRoute = '/main';
 
   @override
@@ -36,7 +36,7 @@ class _MainScreenBootomBarState extends State<MainScreenBootomBar> {
       <BottomNavigationBarItem>[
     const BottomNavigationBarItem(
       icon: Icon(Icons.home),
-      label: 'Home',
+      label: 'RCP Home',
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.search),
@@ -62,11 +62,13 @@ class _MainScreenBootomBarState extends State<MainScreenBootomBar> {
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
         ),
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          automaticallyImplyLeading: false,
-          title: const Text("Wlcome to racing custom parts"),
-        ),
+        appBar: _selectedIndex == 0
+            ? null
+            : AppBar(
+                backgroundColor: Theme.of(context).colorScheme.background,
+                automaticallyImplyLeading: false,
+                title: Text(bottomNagigation[_selectedIndex].label as String),
+              ),
         body: Center(
           child: _pages.elementAt(_selectedIndex),
         ));

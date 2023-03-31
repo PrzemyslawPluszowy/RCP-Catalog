@@ -31,11 +31,16 @@ class ProductSimpleTile extends StatelessWidget {
           child: ListTile(
               title: Text(listToShow[index].name as String),
               leading: SizedBox(
-                height: 50,
-                width: 80,
-                child: ImgageLoading(
-                    boxFit: BoxFit.fill,
-                    imageSrc: listToShow[index].images.first.src as String),
+                height: 100,
+                width: 100,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(15),
+                      bottomLeft: Radius.circular(15)),
+                  child: ImgageLoading(
+                      boxFit: BoxFit.fill,
+                      imageSrc: listToShow[index].images.first.src as String),
+                ),
               ))),
     );
   }

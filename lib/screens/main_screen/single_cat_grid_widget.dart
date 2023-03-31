@@ -35,7 +35,7 @@ class SingleCategoryGrid extends StatelessWidget {
           child: GridTile(
             child: SizedBox(
               width: 100,
-              height: 100,
+              height: 150,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.asset(

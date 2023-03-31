@@ -28,11 +28,11 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           theme: ThemeData(
-            colorScheme: lightColorScheme ?? _defaultLightColorScheme,
+            colorScheme: lightColorScheme,
             useMaterial3: true,
           ),
           darkTheme: ThemeData(
-            colorScheme: darkColorScheme ?? _defaultDarkColorScheme,
+            colorScheme: darkColorScheme,
             useMaterial3: true,
           ),
           themeMode: ThemeMode.dark,

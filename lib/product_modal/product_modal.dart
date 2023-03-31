@@ -4,6 +4,7 @@
 import 'dart:convert';
 
 import 'package:hive/hive.dart';
+// import 'package:html/parser.dart';
 // import 'package:hive_generator/hive_generator.dart';
 part 'product_modal.g.dart';
 
@@ -41,7 +42,7 @@ class Product {
     this.dateModifiedGmt,
     this.description,
     this.shortDescription,
-    this.price,
+    required this.price,
     required this.categories,
     required this.tags,
     required this.images,
@@ -67,7 +68,7 @@ class Product {
   @HiveField(9)
   final String? shortDescription;
   @HiveField(10)
-  final String? price;
+  final String price;
   @HiveField(11)
   final List<Category> categories;
   @HiveField(12)

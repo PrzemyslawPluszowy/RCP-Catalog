@@ -25,21 +25,20 @@ class _LastProductListState extends State<LastProductList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100,
+      height: 130,
       width: double.infinity,
       child: GridView.builder(
         itemCount: lastProduct.length,
         scrollDirection: Axis.horizontal,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            childAspectRatio: 2 / 3,
+            childAspectRatio: 3 / 4,
             mainAxisSpacing: 5,
             maxCrossAxisExtent: double.infinity),
         itemBuilder: (context, index) => InkWell(
-          onTap: () {},
           child: GridTile(
             child: SizedBox(
               width: 100,
-              height: 100,
+              height: 130,
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: InkWell(

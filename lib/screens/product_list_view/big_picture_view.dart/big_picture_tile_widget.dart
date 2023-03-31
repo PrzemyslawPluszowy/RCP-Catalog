@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:rcp/screens/product_overview/product_overview.dart';
+import 'package:rcp/utils/extension.dart';
 import 'package:rcp/utils/image_network.dart';
 
 import '../../../product_modal/product_modal.dart';
@@ -57,7 +58,7 @@ class BigPictureTile extends StatelessWidget {
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: ImgageLoading(
-                          boxFit: BoxFit.fill,
+                          boxFit: BoxFit.cover,
                           imageSrc:
                               listToShow[index].images.first.src as String,
                         )),
@@ -79,10 +80,14 @@ class BigPictureTile extends StatelessWidget {
                           ),
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                                '${double.parse(listToShow[index].price as String).toStringAsFixed(2)}€',
-                                style: Theme.of(context).textTheme.labelLarge),
+                                '${double.parse(listToShow[index].price).toStringAsFixed(2)} €',
+                                style: const TextStyle(color: Colors.red)),
+                            Text(
+                                '${listToShow[index].price.addVat()} € inc.Vat',
+                                style: const TextStyle(color: Colors.blue)),
                           ],
                         )
                       ],

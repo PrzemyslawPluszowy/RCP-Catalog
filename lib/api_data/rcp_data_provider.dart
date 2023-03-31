@@ -158,7 +158,12 @@ class RcpData with ChangeNotifier {
       }
     }
     final ids = <int>{};
-    return duplicate.where((element) => ids.add(element.id as int)).toList();
+    categoryList =
+        duplicate.where((element) => ids.add(element.id as int)).toList();
+    categoryList.sort(
+      (a, b) => a.name!.compareTo(b.name as String),
+    );
+    return categoryList;
   }
 
   List<Product> getLastProductList() {

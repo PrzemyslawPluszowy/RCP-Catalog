@@ -32,21 +32,24 @@ class GridBuliderView extends StatelessWidget {
                           id: listToShow[index].id as int),
                     ));
               },
-              child: Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
                 child: GridTile(
                   footer: Container(
                     decoration: const BoxDecoration(
                         color: Color.fromARGB(183, 0, 0, 0)),
-                    child: Text(
-                      listToShow[index].name as String,
-                      style: const TextStyle(color: Colors.yellow),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text(
+                        listToShow[index].name as String,
+                        style:
+                            const TextStyle(color: Colors.yellow, fontSize: 11),
+                      ),
                     ),
                   ),
                   header: ImgageLoading(
                       imageSrc: listToShow[index].images.first.src as String,
-                      boxFit: BoxFit.cover),
+                      boxFit: BoxFit.fill),
                   child: const SizedBox(),
                 ),
               ),

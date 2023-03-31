@@ -142,13 +142,15 @@ class _ListProductScreenState extends State<ListProductScreen> {
       appBar: showAppBar
           ? null
           : AppBar(
-              backgroundColor: Theme.of(context).colorScheme.background,
+              elevation: null,
+              scrolledUnderElevation: 0,
+              surfaceTintColor: null,
               title: Text(widget.categoryName),
             ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             child: SearchField(
               categoryName: widget.categoryName,
               search: search,
@@ -156,6 +158,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
           ),
           SizedBox(
             width: double.infinity,
+            height: 35,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
