@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rcp/screens/loading_screen/loading_screen.dart';
+import 'package:rcp/utils/image_network.dart';
 
 import '../../../product_modal/product_modal.dart';
 import '../../product_overview/product_overview.dart';
@@ -42,10 +44,9 @@ class GridBuliderView extends StatelessWidget {
                       style: const TextStyle(color: Colors.yellow),
                     ),
                   ),
-                  header: Image.network(
-                    listToShow[index].images.first.src as String,
-                    fit: BoxFit.fill,
-                  ),
+                  header: ImgageLoading(
+                      imageSrc: listToShow[index].images.first.src as String,
+                      boxFit: BoxFit.cover),
                   child: const SizedBox(),
                 ),
               ),

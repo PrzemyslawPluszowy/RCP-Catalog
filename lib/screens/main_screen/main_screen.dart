@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:rcp/screens/product_list_view/product_list_screen.dart';
+import 'package:rcp/screens/main_screen/last_product_widget.dart';
+import 'package:rcp/screens/main_screen/single_cat_grid_widget.dart';
 
-import 'single_cat_grid_widget.dart';
-
-class MainCategory {
-  MainCategory(
-      {required this.idCategory,
-      required this.assetImage,
-      required this.categoryName});
-  final String categoryName;
-  final String assetImage;
-  final int idCategory;
-}
+import '../product_list_view/product_list_screen.dart';
+import 'main_bottombar_screen.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
-  static const pageRoute = '/main';
-
   final List<MainCategory> category = [
     MainCategory(
         assetImage: 'assets/images/category/engine-new.jpg',
@@ -39,14 +29,10 @@ class MainScreen extends StatelessWidget {
         categoryName: 'Others parts',
         idCategory: 35)
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        automaticallyImplyLeading: false,
-        title: const Text("Wlcome to racing custom parts"),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
@@ -56,18 +42,6 @@ class MainScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text('Select Category:'),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ListProductScreen(
-                                null,
-                                'All Product',
-                              ),
-                            ));
-                      },
-                      child: const Text('All Products'))
                 ],
               ),
               const Divider(
@@ -76,7 +50,23 @@ class MainScreen extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              SizedBox(child: SingleCategoryGrid(category: category))
+              SizedBox(child: SingleCategoryGrid(category: category)),
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Select Category:'),
+                ],
+              ),
+              const Divider(
+                height: 5,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              LastProductList()
             ],
           ),
         ),

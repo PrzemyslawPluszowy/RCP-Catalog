@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/api_data/rcp_data_provider.dart';
 import 'package:rcp/api_data/test_controller.dart';
-import 'package:rcp/screens/main_screen/main_screen.dart';
+import 'package:rcp/screens/main_screen/main_bottombar_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -24,7 +24,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         _isLoading = true;
       });
       try {
-        await Provider.of<ApiData>(context, listen: false)
+        await Provider.of<RcpData>(context, listen: false)
             .initData()
             .then((value) => setState(() {
                   _isLoading = false;
@@ -94,7 +94,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                             color: Colors.white,
                             decorationStyle: TextDecorationStyle.dashed),
                       ),
-                      Consumer<ApiData>(
+                      Consumer<RcpData>(
                         builder: (context, value, child) => Text(
                             'Getting product ${value.count}/${value.numberProduct + 2}',
                             style: const TextStyle(
@@ -107,7 +107,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
               : Center(
                   child: FilledButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed(MainScreen.pageRoute);
+                        Navigator.of(context)
+                            .pushNamed(MainScreenBootomBar.pageRoute);
                       },
                       child: const Text('Go to catalog')))
         ],

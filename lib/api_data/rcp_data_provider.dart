@@ -6,16 +6,15 @@ import '../product_modal/product_modal.dart';
 import 'api_key/api_key.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter/foundation.dart';
 
-class ApiData with ChangeNotifier {
-  List<Product> _rcpListAllProduct = [];
+class RcpData with ChangeNotifier {
+  static List<Product> _rcpListAllProduct = [];
   int numberProduct = 0;
   int count = 0;
   late bool isInternetConnection;
   late String lastAddedProductDate;
 
-  get listAllproduct {
+  get getAllProductsList {
     return _rcpListAllProduct;
   }
 
@@ -147,5 +146,27 @@ class ApiData with ChangeNotifier {
         _rcpListAllProduct.firstWhere((product) => product.id as int == id);
 
     return singleProduct;
+  }
+
+  List<Category> getListOfCategory() {
+    List<Category> duplicate = [];
+    List<Category> categoryList = [];
+
+    for (var element in _rcpListAllProduct) {
+      for (var element in element.categories) {
+        duplicate.add(Category(id: element.id, name: element.name));
+      }
+    }
+    final ids = <int>{};
+    return duplicate.where((element) => ids.add(element.id as int)).toList();
+  }
+
+  List<Product> getLastProductList() {
+    List<Product> lastTenProduct = [];
+    lastTenProduct.addAll(_rcpListAllProduct);
+    lastTenProduct.sort((a, b) => a.dateCreated!.millisecondsSinceEpoch
+        .compareTo(b.dateCreated!.millisecondsSinceEpoch));
+    lastTenProduct.removeRange(0, lastTenProduct.length - 5);
+    return lastTenProduct;
   }
 }

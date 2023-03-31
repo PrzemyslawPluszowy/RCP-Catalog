@@ -33,10 +33,11 @@ class _ListProductScreenState extends State<ListProductScreen> {
   @override
   void initState() {
     if (widget.idCategory == null) {
-      _listToShow = Provider.of<ApiData>(context, listen: false).listAllproduct;
+      _listToShow =
+          Provider.of<RcpData>(context, listen: false).getAllProductsList;
       _listToSearch = _listToShow;
     } else {
-      _listToShow = Provider.of<ApiData>(context, listen: false)
+      _listToShow = Provider.of<RcpData>(context, listen: false)
           .getProductCategory(widget.idCategory as int);
       _listToSearch = _listToShow;
     }
@@ -135,12 +136,15 @@ class _ListProductScreenState extends State<ListProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool showAppBar = widget.idCategory != null ? false : true;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        title: Text(widget.categoryName),
-      ),
+      appBar: showAppBar
+          ? null
+          : AppBar(
+              backgroundColor: Theme.of(context).colorScheme.background,
+              title: Text(widget.categoryName),
+            ),
       body: Column(
         children: [
           Padding(

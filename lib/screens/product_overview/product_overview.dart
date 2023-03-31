@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:rcp/api_data/rcp_data_provider.dart';
 
 import 'package:html/parser.dart';
+import 'package:rcp/screens/loading_screen/loading_screen.dart';
+import 'package:rcp/utils/image_network.dart';
 
 import '../../product_modal/product_modal.dart';
 
@@ -25,7 +27,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   @override
   void initState() {
     product =
-        Provider.of<ApiData>(context, listen: false).getProductByID(widget.id);
+        Provider.of<RcpData>(context, listen: false).getProductByID(widget.id);
 
     super.initState();
   }
@@ -60,13 +62,11 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 1),
                     child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Image.network(
-                        imagesList![index].src as String,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15)),
+                        child: ImgageLoading(
+                            imageSrc: imagesList![index].src as String,
+                            boxFit: BoxFit.cover)),
                   );
                 },
                 options: CarouselOptions(
