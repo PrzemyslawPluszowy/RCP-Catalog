@@ -49,6 +49,7 @@ dependencies:
   cached_network_image: ^3.2.3
   flutter_cache_manager: ^3.3.0
   http_exception: ^0.2.1
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +78,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/category/
+    - assets/images/other/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

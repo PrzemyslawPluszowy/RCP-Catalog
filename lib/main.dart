@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rcp/api_data/rcp_data_provider.dart';
 import 'package:rcp/material_theme/color_schemes.g.dart';
 import 'package:rcp/screens/loading_screen/loading_screen.dart';
-import 'package:rcp/screens/main_screen/main_screen.dart';
+import 'package:rcp/screens/main_screen/main_bottombar_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,21 +23,23 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
-            create: (context) => ApiData(),
+            create: (context) => RcpData(),
           ),
         ],
         child: MaterialApp(
 
           theme: ThemeData(
-            colorScheme: lightColorScheme ?? _defaultLightColorScheme,
+            colorScheme: lightColorScheme,
             useMaterial3: true,
           ),
           darkTheme: ThemeData(
-            colorScheme: darkColorScheme ?? _defaultDarkColorScheme,
+            colorScheme: darkColorScheme,
             useMaterial3: true,
           ),
           themeMode: ThemeMode.dark,
-          routes: {MainScreen.pageRoute: (context) => MainScreen()},
+          routes: {
+            MainScreenBootomBar.pageRoute: (context) => MainScreenBootomBar()
+          },
           home: const LoadingScreen(),
         ));
   }

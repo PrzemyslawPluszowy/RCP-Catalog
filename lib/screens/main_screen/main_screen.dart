@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:rcp/screens/product_list_view/product_list_screen.dart';
+import 'package:rcp/screens/main_screen/last_product_widget.dart';
+import 'package:rcp/screens/main_screen/sail_button_widget.dart';
+import 'package:rcp/screens/main_screen/section_tittle_widget.dart';
+import 'package:rcp/screens/main_screen/silver_appbar_widget.dart';
+import 'package:rcp/screens/main_screen/single_cat_grid_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import 'single_cat_grid_widget.dart';
-
-class MainCategory {
-  MainCategory(
-      {required this.idCategory,
-      required this.assetImage,
-      required this.categoryName});
-  final String categoryName;
-  final String assetImage;
-  final int idCategory;
-}
+import 'main_bottombar_screen.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
-  static const pageRoute = '/main';
+  final Uri _url = Uri.parse('https://racingcustomparts.com/');
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
 
   final List<MainCategory> category = [
     MainCategory(
@@ -29,57 +30,56 @@ class MainScreen extends StatelessWidget {
     MainCategory(
         assetImage: 'assets/images/category/Brakes-adpater.jpg',
         categoryName: 'Breake adapter',
-        idCategory: 371),
+        idCategory: 18),
     MainCategory(
         assetImage: 'assets/images/category/Laser-cutting2.jpg',
         categoryName: 'Laser cut parts',
-        idCategory: 35),
+        idCategory: 40),
     MainCategory(
         assetImage: 'assets/images/category/others2-1.jpg',
         categoryName: 'Others parts',
-        idCategory: 35)
+        idCategory: 38)
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        automaticallyImplyLeading: false,
-        title: const Text("Wlcome to racing custom parts"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Select Category:'),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ListProductScreen(
-                                null,
-                                'All Product',
-                              ),
-                            ));
-                      },
-                      child: const Text('All Products'))
-                ],
-              ),
-              const Divider(
-                height: 5,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              SizedBox(child: SingleCategoryGrid(category: category))
-            ],
-          ),
-        ),
+      body: CustomScrollView(
+        slivers: [
+          const AppBarWidget(),
+          SliverList(
+              delegate: SliverChildListDelegate([
+            const SizedBox(
+              height: 10,
+            ),
+            const SectionTitle(title: 'Select Main Category'),
+            SingleCategoryGrid(category: category),
+            const SectionTitle(title: 'Newset Product'),
+            const LastProductList(),
+            const SectionTitle(title: 'Newset Product'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SailButtonWidget(
+                  callback: _launchUrl,
+                  imageSrc: 'assets/images/other/rcp-web.png',
+                  icon: Icons.web,
+                  title: 'Go to Official Page',
+                ),
+                SailButtonWidget(
+                  callback: _launchUrl,
+                  imageSrc: 'assets/images/other/rcp-web.png',
+                  icon: Icons.question_answer,
+                  title: 'FAQ',
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Divider(),
+          ]))
+        ],
       ),
     );
   }

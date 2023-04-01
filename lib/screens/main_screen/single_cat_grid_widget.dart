@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rcp/screens/product_list_view/product_list_screen.dart';
 
-import 'main_screen.dart';
+import 'main_bottombar_screen.dart';
 
 class SingleCategoryGrid extends StatelessWidget {
   const SingleCategoryGrid({
@@ -35,7 +35,7 @@ class SingleCategoryGrid extends StatelessWidget {
           child: GridTile(
             child: SizedBox(
               width: 100,
-              height: 100,
+              height: 150,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.asset(

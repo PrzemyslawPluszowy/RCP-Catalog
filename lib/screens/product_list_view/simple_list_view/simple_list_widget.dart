@@ -9,25 +9,27 @@ class SimpleListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: listToShow.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Column(
-            children: [
-              ProductSimpleTile(
-                  listToShow: listToShow,
-                  index: index,
-                  id: listToShow[index].id as int),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Divider(),
-              )
-            ],
-          ),
-        );
-      },
+    return Scrollbar(
+      child: ListView.builder(
+        itemCount: listToShow.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 7),
+            child: Column(
+              children: [
+                ProductSimpleTile(
+                    listToShow: listToShow,
+                    index: index,
+                    id: listToShow[index].id as int),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Divider(),
+                )
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
