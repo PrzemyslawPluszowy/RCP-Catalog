@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/api_data/rcp_data_provider.dart';
 import 'package:rcp/screens/product_list_view/big_picture_view.dart/big_picture_bulider.dart';
+import 'package:rcp/screens/product_list_view/category_list_indicator.dart';
 import 'package:rcp/screens/product_list_view/dropdown_sort_widget.dart';
 import 'package:rcp/screens/product_list_view/dropdown_view_widget.dart';
 import 'package:rcp/screens/product_list_view/grid_view/grid_view_widget.dart';
@@ -27,6 +28,8 @@ class ListProductScreen extends StatefulWidget {
 class _ListProductScreenState extends State<ListProductScreen> {
   List<Product> _listToShow = [];
   List<Product> _listToSearch = [];
+  List<Category> _listOfcategory = [];
+  List<Product> _storegeSearchList = [];
   String selectedView = "List";
   late String sortSwitch;
 
@@ -40,20 +43,25 @@ class _ListProductScreenState extends State<ListProductScreen> {
       _listToShow = Provider.of<RcpData>(context, listen: false)
           .getProductCategory(widget.idCategory as int);
       _listToSearch = _listToShow;
+      _storegeSearchList = _listToSearch;
+
+      getListOfCategory();
     }
     super.initState();
   }
 
   void search(String value) {
     List<Product> searchList = [];
+
     List<String> listString = value.split(' ');
     searchList.addAll((_listToSearch.where((product) {
       return listString.every((element) =>
           product.name!.toLowerCase().contains(element.toLowerCase()));
     }).toList()));
-
     setState(() {
       _listToShow = searchList;
+      _storegeSearchList = searchList;
+      getListOfCategory();
     });
   }
 
@@ -67,6 +75,37 @@ class _ListProductScreenState extends State<ListProductScreen> {
     setState(() {
       sortSwitch = selected;
       sortSwitchFunc();
+    });
+  }
+
+  void showListProductCatInSearch(int index) {
+    setState(() {
+      _listToShow = _storegeSearchList
+          .where((product) => product.categories
+              .any((prod) => prod.id == _listOfcategory[index].id))
+          .toList();
+
+      getListOfCategory();
+    });
+  }
+
+  void getListOfCategory() {
+    List<Category> duplicate = [];
+    List<Category> categoryList = [];
+    for (var product in _listToShow) {
+      for (var element in product.categories) {
+        duplicate.add(Category(id: element.id, name: element.name));
+      }
+    }
+    final ids = <String>{};
+    categoryList =
+        duplicate.where((element) => ids.add(element.name as String)).toList();
+    categoryList.sort(
+      (a, b) => a.name!.compareTo(b.name as String),
+    );
+
+    setState(() {
+      _listOfcategory = categoryList;
     });
   }
 
@@ -157,11 +196,16 @@ class _ListProductScreenState extends State<ListProductScreen> {
             ),
           ),
           SizedBox(
-            width: double.infinity,
+            width: 400,
             height: 35,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Expanded(
+                    child: CategoryListIndicator(
+                  listOfCategory: _listOfcategory,
+                  showListProductCatInSearch: showListProductCatInSearch,
+                )),
                 DropdownSort(callbackSort: getSelectedSwitch),
                 DropdownView(
                   callbackView: getSelectedView,

@@ -14,7 +14,7 @@ class SimpleListView extends StatelessWidget {
         itemCount: listToShow.length,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 7),
             child: Column(
               children: [
                 ProductSimpleTile(

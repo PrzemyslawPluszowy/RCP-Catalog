@@ -38,7 +38,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
               child: ListBody(
                 children: <Widget>[
                   Text('$error'),
-                  Text('%^%^%&^&&'),
+                  Text('Huston we have problem'),
                 ],
               ),
             ),
@@ -67,9 +67,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
       width: double.infinity,
       height: double.infinity,
       decoration: const BoxDecoration(
-          gradient: LinearGradient(transform: GradientRotation(20), colors: [
-        Color.fromARGB(255, 240, 26, 11),
-        Color.fromARGB(221, 246, 103, 1)
+          gradient: LinearGradient(transform: GradientRotation(-0.2), colors: [
+        Color.fromARGB(221, 0, 0, 0),
+        Color.fromARGB(255, 246, 64, 51),
       ])),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

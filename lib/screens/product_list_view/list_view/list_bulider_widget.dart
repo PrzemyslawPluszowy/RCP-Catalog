@@ -12,13 +12,16 @@ class ListBulider extends StatelessWidget {
     return ListView.builder(
       itemCount: listToShow.length,
       itemBuilder: (context, index) {
-        return Column(
-          children: [
-            ProductTile(
-                listToShow: listToShow,
-                index: index,
-                id: listToShow[index].id as int),
-          ],
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 7),
+          child: Column(
+            children: [
+              ProductTile(
+                  listToShow: listToShow,
+                  index: index,
+                  id: listToShow[index].id as int),
+            ],
+          ),
         );
       },
     );

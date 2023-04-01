@@ -124,17 +124,14 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                       height: 10,
                     ),
                     Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                              _parseHtmlString(
-                                  product.shortDescription as String),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(color: Colors.grey[800])),
-                        ))
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          _parseHtmlString(product.shortDescription as String),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

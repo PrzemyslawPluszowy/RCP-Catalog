@@ -50,7 +50,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     color: Colors.grey,
                   )),
                   title: Center(
-                      child: Text(_categoryList[index].name!.toUpperCase())),
+                    child: Text(_categoryList[index].name!.toUpperCase()),
+                  ),
                 ),
               ),
             ],
