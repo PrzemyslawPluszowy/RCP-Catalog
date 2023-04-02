@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rcp/api_data/list_method_provider.dart';
 
 class SearchField extends StatelessWidget {
   const SearchField({
     Key? key,
-    required this.search,
+    // required this.search,
     required this.categoryName,
   }) : super(key: key);
 
-  final dynamic search;
+  // final search;
   final String categoryName;
 
   @override
@@ -20,7 +22,7 @@ class SearchField extends StatelessWidget {
           hintText: 'Enter search in ${categoryName.toLowerCase()}',
         ),
         onChanged: (value) {
-          search(value);
+          Provider.of<ListMethod>(context, listen: false).search(value);
         });
   }
 }

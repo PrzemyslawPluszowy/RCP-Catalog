@@ -2,21 +2,18 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import '../product_modal/product_modal.dart';
 import 'api_key/api_key.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class RcpData with ChangeNotifier {
-  static List<Product> _rcpListAllProduct = [];
+  List<Product> rcpListAllProduct = [];
   int numberProduct = 0;
   int count = 0;
   late bool isInternetConnection;
   late String lastAddedProductDate;
-
-  get getAllProductsList {
-    return _rcpListAllProduct;
-  }
 
   Future<void> initData() async {
 //init local DB
@@ -30,7 +27,7 @@ class RcpData with ChangeNotifier {
     var box = await Hive.openBox<Product>('rcpData');
     var localRCP = box.values.toList();
     // check internet connection
-    isInternetConnection =true;
+    isInternetConnection = true;
     // await InternetConnectionChecker().hasConnection;
     // add missing products
     if (isInternetConnection == true) {
@@ -46,7 +43,7 @@ class RcpData with ChangeNotifier {
 
         await box.addAll(newProducts);
 
-        _rcpListAllProduct = box.values.toList();
+        rcpListAllProduct = box.values.toList();
       } else {
         await updateAllProductInDB(box);
       }
@@ -55,7 +52,7 @@ class RcpData with ChangeNotifier {
         throw Exception(
             'You dont have internet connection, and dont have local copy, plase turn on internet');
       } else {
-        _rcpListAllProduct = box.values.toList();
+        rcpListAllProduct = box.values.toList();
       }
     }
   }
@@ -78,7 +75,7 @@ class RcpData with ChangeNotifier {
     count = 0;
     await box.clear();
     await getRCPdata();
-    await box.addAll(_rcpListAllProduct);
+    await box.addAll(rcpListAllProduct);
   }
 
   getDateLastAddProduct(List<Product> listToSort) {
@@ -121,9 +118,9 @@ class RcpData with ChangeNotifier {
 
         List<Product> rcp = getArray.map((e) => Product.fromJson(e)).toList();
         if (rcp.isNotEmpty) {
-          _rcpListAllProduct.addAll(rcp);
+          rcpListAllProduct.addAll(rcp);
           page++;
-          count = _rcpListAllProduct.length;
+          count = rcpListAllProduct.length;
         } else {
           breakFetch = true;
           page = 1;
@@ -134,47 +131,5 @@ class RcpData with ChangeNotifier {
       }
       notifyListeners();
     }
-  }
-
-  List<Product> getProductCategory(int idToSearch) {
-    List<Product> categoryListByID = [];
-    categoryListByID = _rcpListAllProduct
-        .where((e) => (e.categories.any((element) => element.id == idToSearch)))
-        .toList();
-    return categoryListByID;
-  }
-
-  Product getProductByID(id) {
-    Product singleProduct =
-        _rcpListAllProduct.firstWhere((product) => product.id as int == id);
-
-    return singleProduct;
-  }
-
-  List<Category> getListOfCategory() {
-    List<Category> duplicate = [];
-    List<Category> categoryList = [];
-
-    for (var element in _rcpListAllProduct) {
-      for (var element in element.categories) {
-        duplicate.add(Category(id: element.id, name: element.name));
-      }
-    }
-    final ids = <int>{};
-    categoryList =
-        duplicate.where((element) => ids.add(element.id as int)).toList();
-    categoryList.sort(
-      (a, b) => a.name!.compareTo(b.name as String),
-    );
-    return categoryList;
-  }
-
-  List<Product> getLastProductList() {
-    List<Product> lastTenProduct = [];
-    lastTenProduct.addAll(_rcpListAllProduct);
-    lastTenProduct.sort((a, b) => a.dateCreated!.millisecondsSinceEpoch
-        .compareTo(b.dateCreated!.millisecondsSinceEpoch));
-    lastTenProduct.removeRange(0, lastTenProduct.length - 5);
-    return lastTenProduct;
   }
 }

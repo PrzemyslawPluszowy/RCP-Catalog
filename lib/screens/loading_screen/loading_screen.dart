@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:rcp/api_data/rcp_data_provider.dart';
+import 'package:rcp/api_data/rcp_init_data_provider.dart';
 import 'package:rcp/api_data/test_controller.dart';
 import 'package:rcp/screens/main_screen/main_bottombar_screen.dart';
 

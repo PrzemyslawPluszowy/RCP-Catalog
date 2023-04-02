@@ -50,6 +50,7 @@ dependencies:
   flutter_cache_manager: ^3.3.0
   http_exception: ^0.2.1
   url_launcher: ^6.1.10
+  share_plus: ^6.3.1
 
 dev_dependencies:
   flutter_test:
