@@ -2,13 +2,15 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rcp/api_data/rcp_data_provider.dart';
+import 'package:rcp/api_data/list_method_provider.dart';
+import 'package:rcp/api_data/rcp_init_data_provider.dart';
 
 import 'package:html/parser.dart';
 import 'package:rcp/utils/extension.dart';
 import 'package:rcp/utils/image_network.dart';
 
 import '../../product_modal/product_modal.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductOverviewScreen extends StatefulWidget {
   const ProductOverviewScreen({
@@ -24,11 +26,13 @@ class ProductOverviewScreen extends StatefulWidget {
 class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   List<Product> allProductList = [];
   late Product product;
+  late Uri _permalink;
+
   @override
   void initState() {
-    product =
-        Provider.of<RcpData>(context, listen: false).getProductByID(widget.id);
-
+    product = Provider.of<ListMethod>(context, listen: false)
+        .getProductByID(widget.id);
+    _permalink = Uri.parse(product.permalink as String);
     super.initState();
   }
 
@@ -36,6 +40,12 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
     List<ImageList>? imagesList = product.images;
 
     return imagesList;
+  }
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_permalink)) {
+      throw Exception('Could not launch $_permalink');
+    }
   }
 
   String _parseHtmlString(String htmlString) {
@@ -120,6 +130,12 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                     const Divider(
                       height: 2,
                     ),
+                    TextButton(
+                        style: const ButtonStyle(
+                          elevation: MaterialStatePropertyAll(3),
+                        ),
+                        onPressed: _launchUrl,
+                        child: Text('Show in Web')),
                     const SizedBox(
                       height: 10,
                     ),
@@ -131,7 +147,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                           _parseHtmlString(product.shortDescription as String),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

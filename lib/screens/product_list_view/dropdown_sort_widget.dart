@@ -33,32 +33,32 @@ class _DropdownSortState extends State<DropdownSort> {
     return PopupMenuButton(
       icon: icon,
       onSelected: (value) {
-        setState(() {
-          selecteMenu = value;
-          widget.callbackSort(selecteMenu);
-          switch (selecteMenu) {
-            case 'Sort by name up':
-              {
-                icon = (_dropList[0].icon);
-              }
-              break;
-            case 'Sort by name down':
-              {
-                icon = (_dropList[1].icon);
-              }
-              break;
-            case 'Sort by date up':
-              {
-                icon = (_dropList[2].icon);
-              }
-              break;
-            case 'Sort by date down':
-              {
-                icon = (_dropList[3].icon);
-              }
-              break;
-          }
-        });
+        // setState(() {
+        selecteMenu = value;
+        widget.callbackSort(selecteMenu);
+        switch (selecteMenu) {
+          case 'Sort by name up':
+            {
+              icon = (_dropList[0].icon);
+            }
+            break;
+          case 'Sort by name down':
+            {
+              icon = (_dropList[1].icon);
+            }
+            break;
+          case 'Sort by date up':
+            {
+              icon = (_dropList[2].icon);
+            }
+            break;
+          case 'Sort by date down':
+            {
+              icon = (_dropList[3].icon);
+            }
+            break;
+        }
+        // });
       }, //toDo fix static index
       itemBuilder: (BuildContext context) {
         return _dropList

@@ -1,10 +1,6 @@
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:rcp/api_data/rcp_data_provider.dart';
+import 'package:rcp/api_data/list_method_provider.dart';
 import 'package:rcp/product_modal/product_modal.dart';
 import 'package:rcp/screens/product_list_view/product_list_screen.dart';
 
@@ -20,7 +16,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   void initState() {
     _categoryList =
-        Provider.of<RcpData>(context, listen: false).getListOfCategory();
+        Provider.of<ListMethod>(context, listen: false).showListOfAllCategory();
     super.initState();
   }
 
@@ -33,7 +29,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Column(
             children: [
-              Divider(),
+              const Divider(),
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -43,12 +39,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ));
                 },
                 child: ListTile(
-                  leading: Container(
-                      child: Image.asset(
+                  leading: Image.asset(
                     'assets/images/logo.png',
                     scale: 2,
                     color: Colors.grey,
-                  )),
+                  ),
                   title: Center(
                     child: Text(_categoryList[index].name!.toUpperCase()),
                   ),
