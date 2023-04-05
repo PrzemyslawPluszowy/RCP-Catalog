@@ -51,6 +51,7 @@ dependencies:
   http_exception: ^0.2.1
   url_launcher: ^6.1.10
   share_plus: ^6.3.1
+  mailto: ^2.0.0
 
 dev_dependencies:
   flutter_test:
