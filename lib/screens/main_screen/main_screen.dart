@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rcp/api_data/setting_data_provider.dart';
 import 'package:rcp/screens/main_screen/last_product_widget.dart';
 import 'package:rcp/screens/main_screen/sail_button_widget.dart';
 import 'package:rcp/screens/main_screen/section_tittle_widget.dart';
@@ -8,14 +11,28 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'main_bottombar_screen.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
   final Uri _url = Uri.parse('https://racingcustomparts.com/');
+  late bool switchThemeMode;
 
   Future<void> _launchUrl() async {
     if (!await launchUrl(_url)) {
       throw Exception('Could not launch $_url');
     }
+  }
+
+  @override
+  void initState() {
+    switchThemeMode = Provider.of<SettingAppProvider>(context, listen: false)
+        .isLightThemeMode;
+    super.initState();
   }
 
   final List<MainCategory> category = [
@@ -49,6 +66,19 @@ class MainScreen extends StatelessWidget {
           const AppBarWidget(),
           SliverList(
               delegate: SliverChildListDelegate([
+            Align(
+              alignment: Alignment.topRight,
+              child: Switch(
+                onChanged: (bool value) {
+                  setState(() {
+                    switchThemeMode = value;
+                    Provider.of<SettingAppProvider>(context, listen: false)
+                        .setThemeMode(value);
+                  });
+                },
+                value: switchThemeMode,
+              ),
+            ),
             const SizedBox(
               height: 10,
             ),
