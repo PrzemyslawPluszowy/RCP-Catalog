@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:rcp/product_modal/product_modal.dart';
-import 'package:mailto/mailto.dart';
-import 'package:rcp/utils/image_network.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'input_widget.dart';
