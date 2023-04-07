@@ -2,17 +2,16 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 import '../product_modal/product_modal.dart';
 import 'api_key/api_key.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class RcpData with ChangeNotifier {
   List<Product> rcpListAllProduct = [];
   int numberProduct = 0;
   int count = 0;
-  late bool isInternetConnection;
+  late bool isInternetConnection = true;
   late String lastAddedProductDate;
 
   Future<void> initData() async {
@@ -22,13 +21,11 @@ class RcpData with ChangeNotifier {
     Hive.registerAdapter(Prod());
     Hive.registerAdapter(CategoryAdapter());
     Hive.registerAdapter(ImageListAdapter());
-    await Hive.initFlutter();
 
     var box = await Hive.openBox<Product>('rcpData');
     var localRCP = box.values.toList();
     // check internet connection
-    isInternetConnection = true;
-    // await InternetConnectionChecker().hasConnection;
+    isInternetConnection = await InternetConnectionCheckerPlus().hasConnection;
     // add missing products
     if (isInternetConnection == true) {
       await productCount();
