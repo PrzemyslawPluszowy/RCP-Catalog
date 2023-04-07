@@ -65,7 +65,7 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
 
   String? _emailValidator(String? value) {
     if (value!.isEmpty ||
-        !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        !RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
             .hasMatch(value)) {
       return 'Enter Correct Email';
     } else {
@@ -92,16 +92,22 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
     }
   }
 
+  String? encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((MapEntry<String, String> e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
+  }
+
   Future<void> _sendEmail() async {
     final Uri emailLaunchUri = Uri(
-      scheme: 'mailto',
-      path: 'racingcustompartsinfo@gmail.com',
-      queryParameters: {
-        'subject': _subject,
-        'body':
-            'name: $_name\n\n  email: $_email\n\n product name: ${widget.singleProductDetail.name}\n\nlink to product: ${widget.singleProductDetail.permalink}\n\n Question: $_bodyEmail\n\n Racing Custom Parts thank you for your time, we respond as soon as possible '
-      },
-    );
+        scheme: 'mailto',
+        path: 'racingcustompartsinfo@gmail.com',
+        query: encodeQueryParameters(<String, String>{
+          'subject': _subject,
+          'body':
+              'name: $_name\n\n  email: $_email\n\n product name: ${widget.singleProductDetail.name}\n\nlink to product: ${widget.singleProductDetail.permalink}\n\n Question: $_bodyEmail\n\n Racing Custom Parts thank you for your time, we respond as soon as possible '
+        }));
 
     if (await canLaunchUrl(emailLaunchUri)) {
       await launchUrl(emailLaunchUri);
@@ -148,31 +154,28 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     width: double.maxFinite,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Ask about',
-                                style:
-                                    Theme.of(context).textTheme.headlineLarge,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Ask about',
+                              style: Theme.of(context).textTheme.headlineLarge,
+                            ),
+                            SizedBox(
+                              width: 200,
+                              child: Text(
+                                widget.singleProductDetail.name as String,
+                                softWrap: true,
+                                maxLines: 2,
                               ),
-                              Container(
-                                width: 200,
-                                child: Text(
-                                  widget.singleProductDetail.name as String,
-                                  softWrap: true,
-                                  maxLines: 2,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                         const CircleAvatar(
                           minRadius: 40,
