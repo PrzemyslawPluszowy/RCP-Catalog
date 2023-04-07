@@ -221,3 +221,13 @@ class ImageList {
         "alt": alt,
       };
 }
+
+@HiveType(typeId: 3)
+class CartProduct {
+  @HiveField(0)
+  final Product product;
+  @HiveField(1)
+  int itemCount;
+
+  CartProduct({required this.product, this.itemCount = 1});
+}

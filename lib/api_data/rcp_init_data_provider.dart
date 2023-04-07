@@ -21,6 +21,7 @@ class RcpData with ChangeNotifier {
     Hive.registerAdapter(Prod());
     Hive.registerAdapter(CategoryAdapter());
     Hive.registerAdapter(ImageListAdapter());
+    Hive.registerAdapter(CartProductAdapter());
 
     var box = await Hive.openBox<Product>('rcpData');
     var localRCP = box.values.toList();

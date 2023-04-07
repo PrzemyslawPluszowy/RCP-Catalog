@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rcp/api_data/cart_provider.dart';
 import 'package:rcp/api_data/list_method_provider.dart';
 
 import 'package:rcp/screens/product_overview/descryption_widget.dart';
@@ -59,6 +60,12 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
           }),
       appBar: AppBar(
         actions: [
+          IconButton(
+              onPressed: () {
+                Provider.of<CartProvider>(context, listen: false)
+                    .addProductToList(product);
+              },
+              icon: Icon(Icons.shopping_cart)),
           IconButton(
             onPressed: () {
               Share.share('Racing Custom Parts ${_permalink}');

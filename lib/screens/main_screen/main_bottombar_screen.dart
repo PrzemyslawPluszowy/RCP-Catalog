@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rcp/cart_screen.dart/cart_screen.dart';
 import 'package:rcp/screens/category_screen/category_screen.dart';
 import 'package:rcp/screens/product_list_view/product_list_screen.dart';
 
@@ -46,18 +47,25 @@ class _MainScreenBootomBarState extends State<MainScreenBootomBar> {
       icon: Icon(Icons.chat),
       label: 'Category',
     ),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.shop),
+      label: 'Cart',
+    ),
   ];
 
   static final List<Widget> _pages = <Widget>[
     MainScreen(),
     const ListProductScreen(null, 'Catalog'),
-    const CategoryScreen()
+    const CategoryScreen(),
+    const CartScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
+          elevation: 10,
+          type: BottomNavigationBarType.fixed,
           items: bottomNagigation,
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
@@ -69,7 +77,7 @@ class _MainScreenBootomBarState extends State<MainScreenBootomBar> {
                 automaticallyImplyLeading: false,
                 title: Text(bottomNagigation[_selectedIndex].label as String),
               ),
-        body: Center(
+        body: Container(
           child: _pages.elementAt(_selectedIndex),
         ));
   }
