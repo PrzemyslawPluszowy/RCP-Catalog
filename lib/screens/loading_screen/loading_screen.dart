@@ -6,6 +6,8 @@ import 'package:rcp/providers/setting_app_data_provider.dart';
 import 'package:rcp/screens/main_screen/main_bottombar_screen.dart';
 import 'package:restart_app/restart_app.dart';
 
+import 'loading_big_button_widget.dart';
+
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
 
@@ -112,13 +114,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                       ],
                     ),
                   )
-                : Center(
-                    child: FilledButton(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(MainScreenBootomBar.pageRoute);
-                        },
-                        child: const Text('Go to catalog')))
+                : const LoadingBigButton()
           ],
         ),
       ),
