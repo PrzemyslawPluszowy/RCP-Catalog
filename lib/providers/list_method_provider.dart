@@ -1,4 +1,3 @@
-
 import 'package:flutter/widgets.dart';
 
 import '../product_modal/product_modal.dart';
@@ -41,7 +40,7 @@ class ListMethod with ChangeNotifier {
     List<String> listString = value.split(' ');
     searchList.addAll((_listToSearch.where((product) {
       return listString.every((element) =>
-          product.name!.toLowerCase().contains(element.toLowerCase()));
+          product.name.toLowerCase().contains(element.toLowerCase()));
     }).toList()));
     _listToShow = searchList;
     _storegeSearchList = searchList;
@@ -61,7 +60,7 @@ class ListMethod with ChangeNotifier {
 
   Product getProductByID(id) {
     Product singleProduct =
-        rcpListAllProduct.firstWhere((product) => product.id as int == id);
+        rcpListAllProduct.firstWhere((product) => product.id == id);
 
     return singleProduct;
   }
