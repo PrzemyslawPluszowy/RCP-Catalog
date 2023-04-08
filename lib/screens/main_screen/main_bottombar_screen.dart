@@ -50,7 +50,7 @@ class _MainScreenBootomBarState extends State<MainScreenBootomBar> {
       icon: Icon(Icons.chat),
       label: 'Category',
     ),
-    BottomNavigationBarItem(
+    const BottomNavigationBarItem(
       icon: BageIcon(),
       label: 'Cart',
     ),

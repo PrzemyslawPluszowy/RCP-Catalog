@@ -35,6 +35,10 @@ class BigPictureTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const snackBar = SnackBar(
+      duration: Duration(seconds: 1),
+      content: Text('You add product to Cart'),
+    );
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
@@ -68,7 +72,7 @@ class BigPictureTile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * 0.7,
                         child: Text(
                           maxLines: 2,
@@ -77,12 +81,14 @@ class BigPictureTile extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * 0.1,
                         child: IconButton(
                             onPressed: () {
                               Provider.of<CartProvider>(context, listen: false)
-                                  .addProductToList(listToShow[index]);
+                                  .addProductToList(listToShow[index])
+                                  .then((value) => ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar));
                             },
                             icon: const Icon(Icons.shop)),
                       ),
