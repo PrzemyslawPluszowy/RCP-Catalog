@@ -231,3 +231,13 @@ class CartProduct {
 
   CartProduct({required this.product, this.itemCount = 1});
 }
+
+@HiveType(typeId: 4)
+class Person {
+  @HiveField(0)
+  final String name;
+  @HiveField(1)
+  final String email;
+
+  Person(this.name, this.email);
+}

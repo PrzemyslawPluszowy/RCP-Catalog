@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/providers/cart_provider.dart';
 import 'package:rcp/providers/rcp_init_data_provider.dart';
+import 'package:rcp/providers/setting_app_data_provider.dart';
 import 'package:rcp/screens/main_screen/main_bottombar_screen.dart';
 import 'package:restart_app/restart_app.dart';
 
@@ -27,6 +28,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
         await Provider.of<RcpData>(context, listen: false)
             .initData()
             .then((value) {
+          Provider.of<SettingAppProvider>(context, listen: false)
+              .initPersonBox();
           Provider.of<CartProvider>(context, listen: false).initDbCart();
         }).then((value) => setState(() {
                   _isLoading = false;

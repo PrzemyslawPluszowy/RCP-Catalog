@@ -1,7 +1,9 @@
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rcp/product_modal/product_modal.dart';
+import 'package:rcp/providers/setting_app_data_provider.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'input_widget.dart';
@@ -27,13 +29,14 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
   late TextEditingController _emailController;
   late TextEditingController _subjectController;
   late TextEditingController _bodyController;
-
+  late SettingAppProvider settingProvider;
   @override
   void initState() {
     super.initState();
+    settingProvider = Provider.of<SettingAppProvider>(context, listen: false);
     _permalink = Uri.parse('${widget.singleProductDetail.permalink}');
-    _nameController = TextEditingController();
-    _emailController = TextEditingController();
+    _nameController = TextEditingController(text: settingProvider.getName());
+    _emailController = TextEditingController(text: settingProvider.getEmail());
     _subjectController =
         TextEditingController(text: widget.singleProductDetail.name.toString());
     _bodyController = TextEditingController();
@@ -241,6 +244,8 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
                     ),
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
+                        settingProvider.addPersonToDb(
+                            email: _email, name: _name);
                         _sendEmail();
                       }
                     },

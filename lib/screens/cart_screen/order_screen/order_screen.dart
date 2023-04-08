@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/providers/cart_provider.dart';
+import 'package:rcp/providers/setting_app_data_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../product_overview/question_screen/input_widget.dart';
@@ -34,14 +35,16 @@ class _OrderScreenState extends State<OrderScreen> {
 
   late TextEditingController _bodyController;
   late String _orderTextforEmail;
-
+  late SettingAppProvider settingProvider;
   @override
   void initState() {
     super.initState();
+    settingProvider = Provider.of<SettingAppProvider>(context, listen: false);
+
     _orderTextforEmail = Provider.of<CartProvider>(context, listen: false)
         .generateTextForEmail();
-    _nameController = TextEditingController();
-    _emailController = TextEditingController();
+    _nameController = TextEditingController(text: settingProvider.getName());
+    _emailController = TextEditingController(text: settingProvider.getEmail());
     _subjectController = TextEditingController(text: 'Order from App');
     _bodyController = TextEditingController();
     _nameController.addListener(_updateText);
@@ -239,6 +242,8 @@ class _OrderScreenState extends State<OrderScreen> {
                     ),
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
+                        settingProvider.addPersonToDb(
+                            name: _name, email: _email);
                         _sendEmail();
                       }
                     },
