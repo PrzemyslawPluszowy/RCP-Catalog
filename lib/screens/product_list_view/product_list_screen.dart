@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rcp/api_data/list_method_provider.dart';
+import 'package:rcp/providers/list_method_provider.dart';
 import 'package:rcp/screens/product_list_view/big_picture_view.dart/big_picture_bulider.dart';
 import 'package:rcp/screens/product_list_view/category_list_indicator.dart';
 import 'package:rcp/screens/product_list_view/dropdown_sort_widget.dart';

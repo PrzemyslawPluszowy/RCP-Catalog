@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:rcp/api_data/list_method_provider.dart';
+import 'package:rcp/providers/list_method_provider.dart';
 import 'package:rcp/product_modal/product_modal.dart';
 
 class CategoryListIndicator extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rcp/api_data/cart_provider.dart';
-import 'package:rcp/utils/extension.dart';
+import 'package:rcp/providers/cart_provider.dart';
+import 'package:rcp/screens/cart_screen/total_price_widget.dart';
 import 'package:rcp/utils/image_network.dart';
 
 class CartScreen extends StatelessWidget {
@@ -34,7 +34,7 @@ class CartScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
+                          SizedBox(
                             width: widthScreen * 0.2,
                             child: ImgageLoading(
                                 imageSrc: listProductCart[index]
@@ -44,10 +44,10 @@ class CartScreen extends StatelessWidget {
                                     .src as String,
                                 boxFit: BoxFit.cover),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 4,
                           ),
-                          Container(
+                          SizedBox(
                             width: widthScreen * 0.48,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +63,7 @@ class CartScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             width: widthScreen * 0.3,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -101,42 +101,13 @@ class CartScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Divider()
+                      const Divider()
                     ],
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    OutlinedButton.icon(
-                        onPressed: () {},
-                        icon: Icon(Icons.shopping_bag),
-                        label: Text('Send Your Order')),
-                    SizedBox(
-                      width: widthScreen * 0.4,
-                      height: heightScreen * 0.15,
-                      child: SizedBox(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Divider(),
-                            Text('Total Cost:'),
-                            Text(
-                                '${value.totalCostCount().toStringAsFixed(2)} €',
-                                style: TextStyle(color: Colors.redAccent)),
-                            Text(
-                                'inc.Vat ${value.totalCostCount().toStringAsFixed(2).addVat()} €',
-                                style: TextStyle(color: Colors.blueAccent)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
+              TotalPriceWidget(
+                  widthScreen: widthScreen, heightScreen: heightScreen)
             ],
           ),
         );

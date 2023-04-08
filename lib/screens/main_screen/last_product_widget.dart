@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rcp/api_data/list_method_provider.dart';
-import 'package:rcp/api_data/rcp_init_data_provider.dart';
+import 'package:rcp/providers/list_method_provider.dart';
+import 'package:rcp/providers/rcp_init_data_provider.dart';
 import 'package:rcp/screens/product_overview/product_overview.dart';
 import 'package:rcp/utils/image_network.dart';
 

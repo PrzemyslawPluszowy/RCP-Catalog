@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rcp/api_data/setting_app_data_provider.dart';
+import 'package:rcp/providers/setting_app_data_provider.dart';
 import 'package:rcp/screens/main_screen/last_product_widget.dart';
 import 'package:rcp/screens/main_screen/sail_button_widget.dart';
 import 'package:rcp/screens/main_screen/section_tittle_widget.dart';
