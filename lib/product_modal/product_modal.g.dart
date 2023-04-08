@@ -17,8 +17,8 @@ class Prod extends TypeAdapter<Product> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Product(
-      id: fields[0] as int?,
-      name: fields[1] as String?,
+      id: fields[0] as int,
+      name: fields[1] as String,
       slug: fields[2] as String?,
       permalink: fields[3] as String?,
       dateCreated: fields[4] as DateTime?,
@@ -170,6 +170,43 @@ class ImageListAdapter extends TypeAdapter<ImageList> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is ImageListAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class CartProductAdapter extends TypeAdapter<CartProduct> {
+  @override
+  final int typeId = 3;
+
+  @override
+  CartProduct read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return CartProduct(
+      product: fields[0] as Product,
+      itemCount: fields[1] as int,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, CartProduct obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.product)
+      ..writeByte(1)
+      ..write(obj.itemCount);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CartProductAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

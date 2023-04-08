@@ -15,9 +15,7 @@ class BigPictureBulider extends StatelessWidget {
         return Column(
           children: [
             BigPictureTile(
-                listToShow: listToShow,
-                index: index,
-                id: listToShow[index].id as int),
+                listToShow: listToShow, index: index, id: listToShow[index].id),
           ],
         );
       },

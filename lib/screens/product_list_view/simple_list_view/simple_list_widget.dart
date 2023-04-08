@@ -18,9 +18,11 @@ class SimpleListView extends StatelessWidget {
             child: Column(
               children: [
                 ProductSimpleTile(
-                    listToShow: listToShow,
-                    index: index,
-                    id: listToShow[index].id as int),
+                  listToShow: listToShow,
+                  index: index,
+                  id: listToShow[index].id,
+                  product: listToShow[index],
+                ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Divider(),

@@ -1,43 +1,49 @@
-// import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:rcp/product_modal/product_modal.dart';
-
+import 'package:provider/provider.dart';
+import 'package:rcp/providers/cart_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'input_widget.dart';
 
-class QuestionFormScreen extends StatefulWidget {
-  const QuestionFormScreen({super.key, required this.singleProductDetail});
-  final Product singleProductDetail;
+import '../../product_overview/question_screen/input_widget.dart';
+import 'expanision_order_widget.dart';
+
+class OrderScreen extends StatefulWidget {
+  const OrderScreen({super.key});
 
   @override
-  State<QuestionFormScreen> createState() => _QuestionFormScreenState();
+  State<OrderScreen> createState() => _OrderScreenState();
 }
 
-class _QuestionFormScreenState extends State<QuestionFormScreen> {
-  final snackBar = const SnackBar(content: Text('Question Submitted'));
-
+class _OrderScreenState extends State<OrderScreen> {
   final formKey = GlobalKey<FormState>();
+
   late Uri _permalink;
+
   late String _name;
+
   late String _email;
+
   late String _subject;
+
   late String _bodyEmail;
+
   late TextEditingController _nameController;
+
   late TextEditingController _emailController;
+
   late TextEditingController _subjectController;
+
   late TextEditingController _bodyController;
+  late String _orderTextforEmail;
 
   @override
   void initState() {
     super.initState();
-    _permalink = Uri.parse('${widget.singleProductDetail.permalink}');
+    _orderTextforEmail = Provider.of<CartProvider>(context, listen: false)
+        .generateTextForEmail();
     _nameController = TextEditingController();
     _emailController = TextEditingController();
-    _subjectController =
-        TextEditingController(text: widget.singleProductDetail.name.toString());
+    _subjectController = TextEditingController(text: 'Order from App');
     _bodyController = TextEditingController();
-    _name = widget.singleProductDetail.name;
     _nameController.addListener(_updateText);
     _emailController.addListener(_updateText);
     _subjectController.addListener(_updateText);
@@ -73,8 +79,7 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
 
   String? _subcjetValidator(String? value) {
     if (value!.isEmpty) {
-      _subjectController.text = widget.singleProductDetail.name;
-      return null;
+      return 'Enter correct subject';
     } else {
       return null;
     }
@@ -104,7 +109,7 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
         query: encodeQueryParameters(<String, String>{
           'subject': _subject,
           'body':
-              'name: $_name\n\n  email: $_email\n\n product name: ${widget.singleProductDetail.name}\n\nlink to product: ${widget.singleProductDetail.permalink}\n\n Question: $_bodyEmail\n\n Racing Custom Parts thank you for your time, we respond as soon as possible '
+              'name: $_name\n\n  email: $_email\n\n Order: $_orderTextforEmail \n\n Messege: $_bodyEmail\n\n Racing Custom Parts thank you for your time, we respond as soon as possible '
         }));
 
     if (await canLaunchUrl(emailLaunchUri)) {
@@ -162,16 +167,8 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Ask about',
+                              'Send Order',
                               style: Theme.of(context).textTheme.headlineLarge,
-                            ),
-                            SizedBox(
-                              width: 200,
-                              child: Text(
-                                widget.singleProductDetail.name,
-                                softWrap: true,
-                                maxLines: 2,
-                              ),
                             ),
                           ],
                         ),
@@ -192,6 +189,7 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
                   const SizedBox(
                     height: 15,
                   ),
+                  const OrderExpanisionWidget(),
                   InputWidget(
                     nameController: _nameController,
                     labelText: 'Name',
@@ -244,7 +242,7 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
                         _sendEmail();
                       }
                     },
-                    child: const Text('Send Question as email'),
+                    child: const Text('Send Order as Email'),
                   ),
                 ],
               ),
