@@ -26,7 +26,7 @@ class TotalPriceWidget extends StatelessWidget {
             OutlinedButton.icon(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => OrderScreen(),
+                    builder: (context) => const OrderScreen(),
                   ));
                 },
                 icon: const Icon(Icons.shopping_bag),

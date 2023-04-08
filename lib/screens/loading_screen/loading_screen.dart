@@ -35,7 +35,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Samething going wrong :('),
+            title: const Text('Samething going wrong :('),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
@@ -73,13 +73,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
             Color.fromARGB(255, 246, 64, 51),
           ])),
       child: Container(
-        decoration: BoxDecoration(color: Colors.black87),
+        decoration: const BoxDecoration(color: Colors.black87),
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(child: Image.asset('assets/images/2x/logo.png')),
+            Image.asset('assets/images/2x/logo.png'),
             _isLoading
                 ? Center(
                     child: Column(

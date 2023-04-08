@@ -52,11 +52,8 @@ class CartScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  child: Text(
-                                      '${listProductCart[index].product.name}',
-                                      softWrap: true),
-                                ),
+                                Text(listProductCart[index].product.name,
+                                    softWrap: true),
                                 const SizedBox(height: 3),
                                 Text(
                                     '€ ${value.showProductPriceWithQuantity(listProductCart[index].product)}')

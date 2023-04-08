@@ -13,17 +13,17 @@ class OrderExpanisionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<CartProvider>(
       builder: (context, value, child) => ExpansionTile(
-        title: Text('Order Detail'),
+        title: const Text('Order Detail'),
         children: [
           ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: value.hiveCart.length,
-            itemBuilder: (context, index) => Container(
+            itemBuilder: (context, index) => SizedBox(
               width: double.maxFinite,
               child: Row(
                 children: [
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.1,
                     child: Text(
                         '${value.hiveCart.values.toList()[index].itemCount}x',

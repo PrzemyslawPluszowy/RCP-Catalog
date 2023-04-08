@@ -17,9 +17,11 @@ class ListBulider extends StatelessWidget {
           child: Column(
             children: [
               ProductTile(
-                  listToShow: listToShow,
-                  index: index,
-                  id: listToShow[index].id as int),
+                listToShow: listToShow,
+                index: index,
+                id: listToShow[index].id,
+                product: listToShow[index],
+              ),
             ],
           ),
         );

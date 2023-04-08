@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SailButtonWidget extends StatelessWidget {
-  SailButtonWidget({
+  const SailButtonWidget({
     Key? key,
     required this.imageSrc,
     required this.title,

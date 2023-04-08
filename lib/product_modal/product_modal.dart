@@ -32,8 +32,8 @@ List<Category> defaultCategory = [
 @HiveType(typeId: 0, adapterName: 'Prod')
 class Product {
   Product({
-    this.id,
-    this.name,
+    required this.id,
+    required this.name,
     this.slug,
     this.permalink,
     this.dateCreated,
@@ -48,9 +48,9 @@ class Product {
     required this.images,
   });
   @HiveField(0)
-  final int? id;
+  final int id;
   @HiveField(1)
-  final String? name;
+  final String name;
   @HiveField(2)
   final String? slug;
   @HiveField(3)

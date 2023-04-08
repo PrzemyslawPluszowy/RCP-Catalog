@@ -5,11 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:rcp/providers/cart_provider.dart';
 import 'package:rcp/screens/cart_screen/cart_screen.dart';
 import 'package:rcp/screens/category_screen/category_screen.dart';
-import 'package:rcp/screens/product_list_view/dropdown_sort_widget.dart';
 import 'package:rcp/screens/product_list_view/product_list_screen.dart';
 
 import 'main_screen.dart';
-import 'single_cat_grid_widget.dart';
 
 class MainCategory {
   MainCategory(
@@ -61,7 +59,7 @@ class _MainScreenBootomBarState extends State<MainScreenBootomBar> {
   int _selectedIndex = 0;
 
   static final List<Widget> _pages = <Widget>[
-    MainScreen(),
+    const MainScreen(),
     const ListProductScreen(null, 'Catalog'),
     const CategoryScreen(),
     const CartScreen(),
@@ -91,8 +89,9 @@ class _MainScreenBootomBarState extends State<MainScreenBootomBar> {
 }
 
 class BageIcon extends StatelessWidget {
-  @override
-  int count = 0;
+  final int count = 0;
+
+  const BageIcon({super.key});
 
   @override
   Widget build(BuildContext context) {

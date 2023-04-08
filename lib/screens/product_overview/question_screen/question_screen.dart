@@ -37,7 +37,7 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
     _subjectController =
         TextEditingController(text: widget.singleProductDetail.name.toString());
     _bodyController = TextEditingController();
-    _name = widget.singleProductDetail.name as String;
+    _name = widget.singleProductDetail.name;
     _nameController.addListener(_updateText);
     _emailController.addListener(_updateText);
     _subjectController.addListener(_updateText);
@@ -73,7 +73,7 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
 
   String? _subcjetValidator(String? value) {
     if (value!.isEmpty) {
-      _subjectController.text = widget.singleProductDetail.name as String;
+      _subjectController.text = widget.singleProductDetail.name;
       return null;
     } else {
       return null;
@@ -168,7 +168,7 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
                             SizedBox(
                               width: 200,
                               child: Text(
-                                widget.singleProductDetail.name as String,
+                                widget.singleProductDetail.name,
                                 softWrap: true,
                                 maxLines: 2,
                               ),

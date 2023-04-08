@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
+import 'package:provider/provider.dart';
 import 'package:rcp/screens/product_overview/product_overview.dart';
 import 'package:rcp/utils/extension.dart';
 import 'package:rcp/utils/image_network.dart';
 
 import '../../../product_modal/product_modal.dart';
+import '../../../providers/cart_provider.dart';
 
 class BigPictureTile extends StatelessWidget {
   const BigPictureTile(
@@ -63,9 +65,28 @@ class BigPictureTile extends StatelessWidget {
                               listToShow[index].images.first.src as String,
                         )),
                   ),
-                  Text(
-                    listToShow[index].name as String,
-                    style: Theme.of(context).textTheme.bodyLarge,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: Text(
+                          maxLines: 2,
+                          softWrap: true,
+                          listToShow[index].name,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.1,
+                        child: IconButton(
+                            onPressed: () {
+                              Provider.of<CartProvider>(context, listen: false)
+                                  .addProductToList(listToShow[index]);
+                            },
+                            icon: const Icon(Icons.shop)),
+                      ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -81,6 +102,7 @@ class BigPictureTile extends StatelessWidget {
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
                                 '${double.parse(listToShow[index].price).toStringAsFixed(2)} €',

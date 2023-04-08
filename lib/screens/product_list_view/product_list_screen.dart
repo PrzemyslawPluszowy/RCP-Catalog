@@ -98,15 +98,14 @@ class _ListProductScreenState extends State<ListProductScreen> {
       case 'Sort by name up':
         {
           _listToShow.sort(
-              (a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+              (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
         }
-        ;
 
         break;
       case 'Sort by name down':
         {
           _listToShow.sort(
-              (a, b) => b.name!.toLowerCase().compareTo(a.name!.toLowerCase()));
+              (a, b) => b.name.toLowerCase().compareTo(a.name.toLowerCase()));
         }
         break;
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class InputWidget extends StatelessWidget {
-  InputWidget({
+  const InputWidget({
     super.key,
     required TextEditingController nameController,
     required this.validator,
@@ -26,7 +26,7 @@ class InputWidget extends StatelessWidget {
       validator: validator,
       controller: _nameController,
       decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           labelText: labelText,
           hintText: labelText,
           prefixIcon: Icon(prefixIcon)),

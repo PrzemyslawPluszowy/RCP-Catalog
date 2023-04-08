@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/providers/setting_app_data_provider.dart';
@@ -12,7 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'main_bottombar_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  MainScreen({super.key});
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -104,10 +103,10 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
-            Divider(),
+            const Divider(),
           ]))
         ],
       ),
