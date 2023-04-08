@@ -45,7 +45,10 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     double height = AppBar().preferredSize.height;
-
+    const snackBar = SnackBar(
+      duration: Duration(seconds: 1),
+      content: Text('You add product to Cart'),
+    );
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
           icon: const Icon(Icons.question_mark),
@@ -61,7 +64,9 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
           IconButton(
               onPressed: () {
                 Provider.of<CartProvider>(context, listen: false)
-                    .addProductToList(product);
+                    .addProductToList(product)
+                    .then((value) =>
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar));
               },
               icon: const Icon(Icons.shopping_cart)),
           IconButton(

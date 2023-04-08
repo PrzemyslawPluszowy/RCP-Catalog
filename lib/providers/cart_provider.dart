@@ -10,7 +10,11 @@ class CartProvider with ChangeNotifier {
   }
 
   int getProductsNumber() {
-    return hiveCart.length;
+    int productInCart = 0;
+    hiveCart.values.toList().forEach((element) {
+      productInCart += element.itemCount;
+    });
+    return productInCart;
   }
 
   bool _isProductExistInList(Product product) {

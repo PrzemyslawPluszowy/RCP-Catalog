@@ -20,6 +20,10 @@ class ProductSimpleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const snackBar = SnackBar(
+      duration: Duration(seconds: 1),
+      content: Text('You add product to Cart'),
+    );
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
@@ -36,7 +40,9 @@ class ProductSimpleTile extends StatelessWidget {
               trailing: IconButton(
                   onPressed: () {
                     Provider.of<CartProvider>(context, listen: false)
-                        .addProductToList(product);
+                        .addProductToList(product)
+                        .then((value) => ScaffoldMessenger.of(context)
+                            .showSnackBar(snackBar));
                   },
                   icon: const Icon(Icons.shop)),
               title: Text(listToShow[index].name,
