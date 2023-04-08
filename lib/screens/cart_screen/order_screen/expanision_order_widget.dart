@@ -32,8 +32,7 @@ class OrderExpanisionWidget extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.7,
                     child: Text(
-                      value.hiveCart.values.toList()[index].product.name
-                          as String,
+                      value.hiveCart.values.toList()[index].product.name,
                     ),
                   ),
                 ],
