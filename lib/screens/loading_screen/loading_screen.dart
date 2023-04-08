@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rcp/api_data/rcp_init_data_provider.dart';
+import 'package:rcp/providers/cart_provider.dart';
+import 'package:rcp/providers/rcp_init_data_provider.dart';
+import 'package:rcp/providers/setting_app_data_provider.dart';
 import 'package:rcp/screens/main_screen/main_bottombar_screen.dart';
 import 'package:restart_app/restart_app.dart';
+
+import 'loading_big_button_widget.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -25,14 +29,18 @@ class _LoadingScreenState extends State<LoadingScreen> {
       try {
         await Provider.of<RcpData>(context, listen: false)
             .initData()
-            .then((value) => setState(() {
+            .then((value) {
+          Provider.of<SettingAppProvider>(context, listen: false)
+              .initPersonBox();
+          Provider.of<CartProvider>(context, listen: false).initDbCart();
+        }).then((value) => setState(() {
                   _isLoading = false;
                 }));
       } catch (error) {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Samething going wrong :('),
+            title: const Text('Samething going wrong :('),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
@@ -70,13 +78,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
             Color.fromARGB(255, 246, 64, 51),
           ])),
       child: Container(
-        decoration: BoxDecoration(color: Colors.black87),
+        decoration: const BoxDecoration(color: Colors.black87),
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(child: Image.asset('assets/images/2x/logo.png')),
+            Image.asset('assets/images/2x/logo.png'),
             _isLoading
                 ? Center(
                     child: Column(
@@ -106,13 +114,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                       ],
                     ),
                   )
-                : Center(
-                    child: FilledButton(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(MainScreenBootomBar.pageRoute);
-                        },
-                        child: const Text('Go to catalog')))
+                : const LoadingBigButton()
           ],
         ),
       ),

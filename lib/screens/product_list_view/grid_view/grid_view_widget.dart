@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rcp/screens/loading_screen/loading_screen.dart';
 import 'package:rcp/utils/image_network.dart';
 
 import '../../../product_modal/product_modal.dart';
@@ -28,8 +27,8 @@ class GridBuliderView extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProductOverviewScreen(
-                          id: listToShow[index].id as int),
+                      builder: (context) =>
+                          ProductOverviewScreen(id: listToShow[index].id),
                     ));
               },
               child: ClipRRect(
@@ -41,7 +40,7 @@ class GridBuliderView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Text(
-                        listToShow[index].name as String,
+                        listToShow[index].name,
                         style:
                             const TextStyle(color: Colors.yellow, fontSize: 11),
                       ),

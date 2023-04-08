@@ -4,7 +4,7 @@ extension SaveIndex<T> on List<T> {
 
 extension AddVat on String {
   String addVat() {
-    return '${(double.parse(this) * 1.23).toStringAsFixed(2)}';
+    return (double.parse(this) * 1.23).toStringAsFixed(2);
   }
 }
                                 // '${double.parse(listToShow[index].price).toStringAsFixed(2).addVat()}€ inc. Vat',

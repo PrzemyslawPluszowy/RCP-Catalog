@@ -14,6 +14,7 @@ List<Item> dropList = [
 ];
 
 class DropdownView extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final callbackView;
 
   const DropdownView({super.key, required this.callbackView});
