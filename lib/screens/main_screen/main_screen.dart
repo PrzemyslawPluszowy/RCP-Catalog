@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/providers/setting_app_data_provider.dart';
@@ -8,6 +9,7 @@ import 'package:rcp/screens/main_screen/silver_appbar_widget.dart';
 import 'package:rcp/screens/main_screen/single_cat_grid_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'carusel_widget.dart';
 import 'main_bottombar_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -64,50 +66,58 @@ class _MainScreenState extends State<MainScreen> {
         slivers: [
           const AppBarWidget(),
           SliverList(
-              delegate: SliverChildListDelegate([
-            Align(
-              alignment: Alignment.topRight,
-              child: Switch(
-                onChanged: (bool value) {
-                  setState(() {
-                    switchThemeMode = value;
-                    Provider.of<SettingAppProvider>(context, listen: false)
-                        .setThemeMode(value);
-                  });
-                },
-                value: switchThemeMode,
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const SectionTitle(title: 'Select Main Category'),
-            SingleCategoryGrid(category: category),
-            const SectionTitle(title: 'Newset Product'),
-            const LastProductList(),
-            const SectionTitle(title: 'Newset Product'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SailButtonWidget(
-                  callback: _launchUrl,
-                  imageSrc: 'assets/images/other/rcp-web.png',
-                  icon: Icons.web,
-                  title: 'Go to Official Page',
+            delegate: SliverChildListDelegate(
+              [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Switch(
+                    onChanged: (bool value) {
+                      setState(() {
+                        switchThemeMode = value;
+                        Provider.of<SettingAppProvider>(context, listen: false)
+                            .setThemeMode(value);
+                      });
+                    },
+                    value: switchThemeMode,
+                  ),
                 ),
-                SailButtonWidget(
-                  callback: _launchUrl,
-                  imageSrc: 'assets/images/other/rcp-web.png',
-                  icon: Icons.question_answer,
-                  title: 'FAQ',
+                const SizedBox(
+                  height: 10,
                 ),
+                const SectionTitle(title: 'Select Main Category'),
+                SingleCategoryGrid(category: category),
+                const SectionTitle(title: 'Newset Product'),
+                const LastProductList(),
+                const SectionTitle(title: 'Newset Product'),
+                SizedBox(
+                  width: double.maxFinite,
+                  child: Row(
+                    verticalDirection: VerticalDirection.down,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SailButtonWidget(
+                        callback: _launchUrl,
+                        imageSrc: 'assets/images/tsunami.jpeg',
+                        icon: Icons.web,
+                        title: 'Go to Official Page',
+                      ),
+                      SailButtonWidget(
+                        callback: _launchUrl,
+                        imageSrc: 'assets/images/engine.jpeg',
+                        icon: Icons.car_crash,
+                        title: 'About this app',
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                const Divider(),
+                CaruselInMain(),
               ],
             ),
-            const SizedBox(
-              height: 4,
-            ),
-            const Divider(),
-          ]))
+          )
         ],
       ),
     );

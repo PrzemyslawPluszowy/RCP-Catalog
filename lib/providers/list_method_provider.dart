@@ -61,7 +61,6 @@ class ListMethod with ChangeNotifier {
   Product getProductByID(id) {
     Product singleProduct =
         rcpListAllProduct.firstWhere((product) => product.id == id);
-
     return singleProduct;
   }
 
@@ -116,11 +115,11 @@ class ListMethod with ChangeNotifier {
       _listToShow = _storegeSearchList;
     } else {
       _listToShow = _storegeSearchList
-          .where((product) => product.categories
-              .any((prod) => prod.id == _listOfcategory[index].id))
+          .where((product) => product.categories.any((prod) => prod.id
+              .toString()
+              .contains(_listOfcategory[index].id.toString())))
           .toList();
     }
-    getCategorySearchList();
     notifyListeners();
   }
 }
