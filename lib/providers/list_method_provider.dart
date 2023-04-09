@@ -66,11 +66,13 @@ class ListMethod with ChangeNotifier {
 
   List<Product> getLastProductList() {
     List<Product> lastTenProduct = [];
+    List<Product> lastProductReversed = [];
     lastTenProduct.addAll(rcpListAllProduct);
     lastTenProduct.sort((a, b) => a.dateCreated!.millisecondsSinceEpoch
         .compareTo(b.dateCreated!.millisecondsSinceEpoch));
     lastTenProduct.removeRange(0, lastTenProduct.length - 5);
-    return lastTenProduct;
+    lastProductReversed = lastTenProduct.reversed.toList();
+    return lastProductReversed;
   }
 
   List<Category> showListOfAllCategory() {
@@ -94,7 +96,7 @@ class ListMethod with ChangeNotifier {
   List<Category> getCategorySearchList() {
     List<Category> duplicate = [];
     List<Category> categoryList = [];
-    for (var product in _listToShow) {
+    for (var product in _storegeSearchList) {
       for (var element in product.categories) {
         duplicate.add(Category(id: element.id, name: element.name));
       }
