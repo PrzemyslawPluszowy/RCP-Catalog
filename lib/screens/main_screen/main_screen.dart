@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/providers/setting_app_data_provider.dart';
 import 'package:rcp/screens/main_screen/last_product_widget.dart';
@@ -24,9 +25,20 @@ class _MainScreenState extends State<MainScreen> {
   late bool switchThemeMode;
 
   Future<void> _launchUrl() async {
+    HapticFeedback.lightImpact();
     if (!await launchUrl(_url)) {
       throw Exception('Could not launch $_url');
     }
+  }
+
+  String imageBgSwitch() {
+    String image = 'assets/images/bg.dark.webp';
+    setState(() {
+      switchThemeMode
+          ? (image = 'assets/images/bg.dark.webp')
+          : (image = 'assets/images/bg.light.jpg');
+    });
+    return image;
   }
 
   @override
@@ -61,65 +73,78 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          const AppBarWidget(),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Switch(
-                    onChanged: (bool value) {
-                      setState(() {
-                        switchThemeMode = value;
-                        Provider.of<SettingAppProvider>(context, listen: false)
-                            .setThemeMode(value);
-                      });
-                    },
-                    value: switchThemeMode,
+    return Stack(children: [
+      Image.asset(imageBgSwitch(),
+          fit: BoxFit.cover,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width),
+      // const DecoratedBox(
+      //     decoration: BoxDecoration(
+      //         image: DecorationImage(
+      //             image: AssetImage('assets/images/bg.dark.webp'),
+      //             fit: BoxFit.cover))),
+      Scaffold(
+        backgroundColor: Colors.transparent,
+        body: CustomScrollView(
+          slivers: [
+            const AppBarWidget(),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Switch(
+                      onChanged: (bool value) {
+                        setState(() {
+                          switchThemeMode = value;
+                          Provider.of<SettingAppProvider>(context,
+                                  listen: false)
+                              .setThemeMode(value);
+                        });
+                      },
+                      value: switchThemeMode,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const SectionTitle(title: 'Select Main Category'),
-                SingleCategoryGrid(category: category),
-                const SectionTitle(title: 'Newset Product'),
-                const LastProductList(),
-                const SectionTitle(title: 'Newset Product'),
-                SizedBox(
-                  width: double.maxFinite,
-                  child: Row(
-                    verticalDirection: VerticalDirection.down,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SailButtonWidget(
-                        callback: _launchUrl,
-                        imageSrc: 'assets/images/tsunami.jpeg',
-                        icon: Icons.web,
-                        title: 'Go to Official Page',
-                      ),
-                      SailButtonWidget(
-                        callback: _launchUrl,
-                        imageSrc: 'assets/images/engine.jpeg',
-                        icon: Icons.car_crash,
-                        title: 'About this app',
-                      ),
-                    ],
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                const Divider(),
-                CaruselInMain(),
-              ],
-            ),
-          )
-        ],
+                  const SectionTitle(title: 'Select Main Category'),
+                  SingleCategoryGrid(category: category),
+                  const SectionTitle(title: 'Newset Product'),
+                  const LastProductList(),
+                  const SectionTitle(title: 'Newset Product'),
+                  SizedBox(
+                    width: double.maxFinite,
+                    child: Row(
+                      verticalDirection: VerticalDirection.down,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SailButtonWidget(
+                          callback: _launchUrl,
+                          imageSrc: 'assets/images/tsunami.jpeg',
+                          icon: Icons.web,
+                          title: 'Go to Official Page',
+                        ),
+                        SailButtonWidget(
+                          callback: _launchUrl,
+                          imageSrc: 'assets/images/engine.jpeg',
+                          icon: Icons.car_crash,
+                          title: 'About this app',
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  const Divider(),
+                  CaruselInMain(),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
-    );
+    ]);
   }
 }

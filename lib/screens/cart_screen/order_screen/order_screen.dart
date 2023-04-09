@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/providers/cart_provider.dart';
 import 'package:rcp/providers/setting_app_data_provider.dart';
+import 'package:rcp/screens/question_screen/round_logo.widgtet.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../product_overview/question_screen/input_widget.dart';
+import '../../question_screen/input_widget.dart';
 import 'expanision_order_widget.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -175,17 +176,7 @@ class _OrderScreenState extends State<OrderScreen> {
                             ),
                           ],
                         ),
-                        const CircleAvatar(
-                          minRadius: 40,
-                          maxRadius: 50,
-                          backgroundColor: Color.fromARGB(255, 255, 17, 0),
-                          child: CircleAvatar(
-                              minRadius: 30,
-                              maxRadius: 40,
-                              backgroundImage: AssetImage(
-                                'assets/images/logo.png',
-                              )),
-                        )
+                        const RoundLogo()
                       ],
                     ),
                   ),

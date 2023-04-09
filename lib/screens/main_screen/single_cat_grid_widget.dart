@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rcp/screens/product_list_view/product_list_screen.dart';
 
 import 'main_bottombar_screen.dart';
@@ -24,23 +25,31 @@ class SingleCategoryGrid extends StatelessWidget {
             mainAxisSpacing: 5,
             maxCrossAxisExtent: double.infinity),
         itemBuilder: (context, index) => InkWell(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ListProductScreen(
-                  category[index].idCategory,
-                  category[index].categoryName,
-                ),
-              )),
+          onTap: () {
+            HapticFeedback.lightImpact();
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ListProductScreen(
+                    category[index].idCategory,
+                    category[index].categoryName,
+                  ),
+                ));
+          },
           child: GridTile(
-            child: SizedBox(
-              width: 100,
-              height: 150,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
-                  category[index].assetImage,
-                  fit: BoxFit.cover,
+            child: Container(
+              width: 101,
+              height: 151,
+              child: SizedBox(
+                width: 100,
+                height: 150,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(
+                    category[index].assetImage,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
