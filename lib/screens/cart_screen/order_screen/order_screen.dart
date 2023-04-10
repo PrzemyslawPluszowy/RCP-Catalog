@@ -64,8 +64,10 @@ class _OrderScreenState extends State<OrderScreen> {
   }
 
   String? _nameValidator(String? value) {
-    if (value!.isEmpty || !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-      return 'Enter Correct Name';
+    if (value!.isEmpty ||
+        !RegExp(r"^[\p{L}\p{N}]+ [\p{L}\p{N}]+$", unicode: true)
+            .hasMatch(value)) {
+      return 'Please enter your full name (first & last name)';
     } else {
       return null;
     }
