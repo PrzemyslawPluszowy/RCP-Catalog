@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/providers/setting_app_data_provider.dart';
+import 'package:rcp/screens/about_screen.dart/about_screen.dart';
 import 'package:rcp/screens/main_screen/last_product_widget.dart';
 import 'package:rcp/screens/main_screen/sail_button_widget.dart';
 import 'package:rcp/screens/main_screen/section_tittle_widget.dart';
@@ -29,6 +30,14 @@ class _MainScreenState extends State<MainScreen> {
     if (!await launchUrl(_url)) {
       throw Exception('Could not launch $_url');
     }
+  }
+
+  void _goToAboutScreen() {
+    HapticFeedback.lightImpact();
+
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => AboutScreen(),
+    ));
   }
 
   String imageBgSwitch() {
@@ -126,7 +135,7 @@ class _MainScreenState extends State<MainScreen> {
                           title: 'Go to Official Page',
                         ),
                         SailButtonWidget(
-                          callback: _launchUrl,
+                          callback: _goToAboutScreen,
                           imageSrc: 'assets/images/engine.jpeg',
                           icon: Icons.car_crash,
                           title: 'About this app',
