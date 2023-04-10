@@ -22,14 +22,11 @@ class AppBarWidget extends StatelessWidget {
               const BorderRadius.vertical(bottom: Radius.elliptical(300, 20)),
           child: Container(
             decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/appBar.jpeg'),
+                  fit: BoxFit.fill),
               gradient: LinearGradient(
                   colors: [Colors.black, Color.fromARGB(255, 239, 71, 59)]),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: Image.asset(
-                'assets/images/3x/logo.png',
-              ),
             ),
           ),
         ),

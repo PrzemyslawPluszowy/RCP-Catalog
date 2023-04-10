@@ -13,7 +13,7 @@
   
 
     <application
-        android:label="RCP"
+        android:label="Racing Custom Parts"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -13,11 +13,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Hive.initFlutter();
-  runApp(const MyApp());
+  runApp(const RCP());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class RCP extends StatelessWidget {
+  const RCP({super.key});
 
   // static final _defaultLightColorScheme =
   //     ColorScheme.fromSwatch(primarySwatch: Colors.red);

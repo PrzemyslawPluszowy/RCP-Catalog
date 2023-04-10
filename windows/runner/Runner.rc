@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "rcp" "\0"
+            VALUE "FileDescription", "Racing Custom Parts" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "rcp" "\0"
+            VALUE "InternalName", "Racing Custom Parts" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "rcp.exe" "\0"
-            VALUE "ProductName", "rcp" "\0"
+            VALUE "ProductName", "Racing Custom Parts" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
