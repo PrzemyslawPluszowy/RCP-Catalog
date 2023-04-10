@@ -14,7 +14,7 @@ class AppBarWidget extends StatelessWidget {
       systemOverlayStyle: null,
       backgroundColor: Colors.transparent,
       automaticallyImplyLeading: false,
-      pinned: true,
+      pinned: false,
       expandedHeight: 160,
       flexibleSpace: FlexibleSpaceBar(
         background: ClipRRect(
