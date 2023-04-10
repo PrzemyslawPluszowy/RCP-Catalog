@@ -22,19 +22,19 @@ class _FaqWidgetState extends State<FaqWidget> {
     Question(
         headerValue: 'Why i can\'t pay in app',
         expandetValue:
-            'All our products we make for special order with custom modification special for you, sometimes we need more information about created parts for you'),
+            'All our products we make for special order with custom modification special for you, sometimes we need more information about created parts for you.'),
     Question(
-        headerValue: 'My money are save?',
+        headerValue: 'Is my money save while paying?',
         expandetValue:
             'All of our products can be ordered and paid via the Paypal and Ebay. \n You have Paypal and Ebay Guarantee, write to us for more information.'),
     Question(
-        headerValue: 'Where are you shipping?',
+        headerValue: 'Where are your products send from?',
         expandetValue:
             'We work with customer all over the word, write to us. '),
     Question(
         headerValue: 'What is the quality of the product?',
         expandetValue:
-            'We make highest quelity product. Our component are tested among others  in dragster Tsunami 2200hp'),
+            'We make highest quality product. Our component are tested among others in dragster Tsunami 2200hp'),
   ];
   @override
   Widget build(BuildContext context) {

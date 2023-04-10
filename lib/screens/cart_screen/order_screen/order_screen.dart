@@ -216,7 +216,7 @@ class _OrderScreenState extends State<OrderScreen> {
                   ),
                   InputWidget(
                     nameController: _bodyController,
-                    labelText: 'Messege',
+                    labelText: 'Message',
                     validator: _messegeValidator,
                     prefixIcon: Icons.message,
                     minimalLine: 4,

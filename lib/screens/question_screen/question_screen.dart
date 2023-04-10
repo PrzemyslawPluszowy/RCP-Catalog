@@ -219,7 +219,7 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
                   ),
                   InputWidget(
                     nameController: _bodyController,
-                    labelText: 'Messege',
+                    labelText: 'Message',
                     validator: _messegeValidator,
                     prefixIcon: Icons.message,
                     minimalLine: 4,
