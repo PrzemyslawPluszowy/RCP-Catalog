@@ -13,8 +13,6 @@ class LoadingBigButton extends StatefulWidget {
 
 class _LoadingBigButtonState extends State<LoadingBigButton>
     with TickerProviderStateMixin {
-  bool _animStop = true;
-
   late final AnimationController _controller = AnimationController(
     lowerBound: 0,
     upperBound: 1,
@@ -28,6 +26,12 @@ class _LoadingBigButtonState extends State<LoadingBigButton>
       _controller.stop();
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   late final Animation<double> _animation =

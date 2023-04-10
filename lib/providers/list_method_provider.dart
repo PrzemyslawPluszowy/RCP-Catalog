@@ -8,6 +8,7 @@ class ListMethod with ChangeNotifier {
   late List<Product> _listToSearch;
   List<Category> _listOfcategory = [];
   late List<Product> _storegeSearchList;
+  int selectedIndex = -1;
 
 // get from provider RCP Data
   void update(List<Product> rcpProductsData) {
@@ -45,7 +46,16 @@ class ListMethod with ChangeNotifier {
     _listToShow = searchList;
     _storegeSearchList = searchList;
     getCategorySearchList();
+    resetCategoryIndex();
     notifyListeners();
+  }
+
+  void resetCategoryIndex() {
+    selectedIndex = -1;
+  }
+
+  void setCategoryIndex(int index) {
+    selectedIndex = index;
   }
 
   getProductCategory(int idToSearch) {
@@ -112,7 +122,9 @@ class ListMethod with ChangeNotifier {
     return _listOfcategory;
   }
 
-  void showProductFilterebByCategory(int index, int selectedIndex) {
+  void showProductFilterebByCategory(
+    int index,
+  ) {
     if (selectedIndex == -1) {
       _listToShow = _storegeSearchList;
     } else {

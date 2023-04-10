@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/providers/list_method_provider.dart';
 import 'package:rcp/screens/product_overview/product_overview.dart';
@@ -43,6 +44,8 @@ class _LastProductListState extends State<LastProductList> {
                   borderRadius: BorderRadius.circular(20),
                   child: InkWell(
                     onTap: () {
+                      HapticFeedback.mediumImpact();
+
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
                           return ProductOverviewScreen(

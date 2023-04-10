@@ -38,7 +38,7 @@ class SingleCategoryGrid extends StatelessWidget {
                 ));
           },
           child: GridTile(
-            child: Container(
+            child: SizedBox(
               width: 101,
               height: 151,
               child: SizedBox(

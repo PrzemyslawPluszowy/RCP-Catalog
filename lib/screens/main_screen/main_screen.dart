@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +35,9 @@ class _MainScreenState extends State<MainScreen> {
     HapticFeedback.lightImpact();
 
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => AboutScreen(),
+      builder: (context) => const AboutScreen(
+        initialPageIndex: 0,
+      ),
     ));
   }
 
@@ -87,11 +88,6 @@ class _MainScreenState extends State<MainScreen> {
           fit: BoxFit.cover,
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width),
-      // const DecoratedBox(
-      //     decoration: BoxDecoration(
-      //         image: DecorationImage(
-      //             image: AssetImage('assets/images/bg.dark.webp'),
-      //             fit: BoxFit.cover))),
       Scaffold(
         backgroundColor: Colors.transparent,
         body: CustomScrollView(
@@ -121,7 +117,9 @@ class _MainScreenState extends State<MainScreen> {
                   SingleCategoryGrid(category: category),
                   const SectionTitle(title: 'Newset Product'),
                   const LastProductList(),
-                  const SectionTitle(title: 'Newset Product'),
+                  const SectionTitle(title: 'About Us'),
+                  CaruselInMain(),
+                  const Divider(),
                   SizedBox(
                     width: double.maxFinite,
                     child: Row(
@@ -146,8 +144,6 @@ class _MainScreenState extends State<MainScreen> {
                   const SizedBox(
                     height: 4,
                   ),
-                  const Divider(),
-                  CaruselInMain(),
                 ],
               ),
             )
