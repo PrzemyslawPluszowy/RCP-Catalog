@@ -21,8 +21,10 @@ class SingleCategoryGrid extends StatelessWidget {
         itemCount: category.length,
         scrollDirection: Axis.horizontal,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            mainAxisExtent: 160,
+            crossAxisSpacing: 2,
             childAspectRatio: 2 / 3,
-            mainAxisSpacing: 5,
+            mainAxisSpacing: 6,
             maxCrossAxisExtent: double.infinity),
         itemBuilder: (context, index) => InkWell(
           onTap: () {

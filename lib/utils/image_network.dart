@@ -12,8 +12,11 @@ class ImgageLoading extends StatelessWidget {
     return CachedNetworkImage(
       fit: boxFit,
       imageUrl: imageSrc,
-      progressIndicatorBuilder: (context, url, downloadProgress) =>
-          CircularProgressIndicator(value: downloadProgress.progress),
+      progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+          child: CircularProgressIndicator(
+        value: downloadProgress.progress,
+        strokeWidth: 3.0,
+      )),
       errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }

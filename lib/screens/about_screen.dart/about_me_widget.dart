@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const _textCV =
     "Hi, my name is Przemek, for friends Pluszowy. I come from Cracov, a city in Poland. I'm not proffessional developer but I'm willing to be. I created this app, for my friends company, and I learn Flutter and Dart on this app. I hope you'll like it. I have a little expierence in Java Script, html, angular and css but I focus on Flutter and Dart. \n If you are company's developer and my work is good for you I'm searching for employment in this industry as trainee.";
+const _phoneNumber = '+48664476874';
+const _mail = 'nowak@zakrzowiec.pl';
 
 class AboutMe extends StatefulWidget {
   const AboutMe({super.key});
@@ -10,6 +13,18 @@ class AboutMe extends StatefulWidget {
 }
 
 class _AboutMeState extends State<AboutMe> {
+  final Uri emailLaunchUri = Uri(
+    scheme: 'mailto',
+    path: _mail,
+  );
+  Future<void> _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -55,7 +70,19 @@ class _AboutMeState extends State<AboutMe> {
                       const SizedBox(
                         height: 5,
                       ),
-                      const Text(_textCV)
+                      const Text(_textCV),
+                      TextButton.icon(
+                          onPressed: () {
+                            launchUrl(emailLaunchUri);
+                          },
+                          icon: Icon(Icons.mail),
+                          label: const Text('Write mail to me')),
+                      TextButton.icon(
+                          onPressed: () {
+                            _makePhoneCall(_phoneNumber);
+                          },
+                          icon: Icon(Icons.smartphone),
+                          label: const Text('Call Me')),
                     ],
                   ),
                 )),

@@ -17,7 +17,6 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen> {
   bool _isInit = true;
   bool _isLoading = false;
-  showSnackBar2(err) {}
 
   @override
   void didChangeDependencies() async {
@@ -39,7 +38,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Samething going wrong :('),
+            title: const Text('Samething went wrong :( '),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
@@ -49,7 +48,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             ),
             actions: <Widget>[
               TextButton(
-                child: const Text('Approve'),
+                child: const Text('Try Again'),
                 onPressed: () {
                   Restart.restartApp();
                 },
