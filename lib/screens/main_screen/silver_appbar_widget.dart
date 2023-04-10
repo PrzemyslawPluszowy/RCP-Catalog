@@ -8,7 +8,11 @@ class AppBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      // actions: [],
+      surfaceTintColor: const Color.fromARGB(255, 0, 0, 0),
+      scrolledUnderElevation: null,
+      excludeHeaderSemantics: false,
+      systemOverlayStyle: null,
+      backgroundColor: Colors.transparent,
       automaticallyImplyLeading: false,
       pinned: true,
       expandedHeight: 160,

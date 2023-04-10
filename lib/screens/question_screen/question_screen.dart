@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/product_modal/product_modal.dart';
+
 import 'package:rcp/providers/setting_app_data_provider.dart';
+import 'package:rcp/screens/question_screen/round_logo.widgtet.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'input_widget.dart';
@@ -178,17 +180,7 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
                             ),
                           ],
                         ),
-                        const CircleAvatar(
-                          minRadius: 40,
-                          maxRadius: 50,
-                          backgroundColor: Color.fromARGB(255, 255, 17, 0),
-                          child: CircleAvatar(
-                              minRadius: 30,
-                              maxRadius: 40,
-                              backgroundImage: AssetImage(
-                                'assets/images/logo.png',
-                              )),
-                        )
+                        const RoundLogo()
                       ],
                     ),
                   ),

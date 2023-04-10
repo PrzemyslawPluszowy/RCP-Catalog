@@ -69,7 +69,8 @@ class _MainScreenBootomBarState extends State<MainScreenBootomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-          elevation: 10,
+          enableFeedback: true,
+          elevation: 2,
           type: BottomNavigationBarType.fixed,
           items: bottomNagigation,
           currentIndex: _selectedIndex,

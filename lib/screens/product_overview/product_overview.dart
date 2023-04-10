@@ -4,7 +4,7 @@ import 'package:rcp/providers/cart_provider.dart';
 import 'package:rcp/providers/list_method_provider.dart';
 
 import 'package:rcp/screens/product_overview/descryption_widget.dart';
-import 'package:rcp/screens/product_overview/question_screen/question_screen.dart';
+import 'package:rcp/screens/question_screen/question_screen.dart';
 import 'package:rcp/screens/product_overview/slider_wiget.dart';
 import 'package:rcp/utils/extension.dart';
 

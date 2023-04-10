@@ -16,10 +16,10 @@ class CategoryListIndicator extends StatefulWidget {
 }
 
 class _CategoryListIndicatorState extends State<CategoryListIndicator> {
-  int selectedIndex = -1;
-
   @override
   Widget build(BuildContext context) {
+    int selectedIndex = Provider.of<ListMethod>(context).selectedIndex;
+
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: widget.listOfCategory.length,
@@ -34,12 +34,15 @@ class _CategoryListIndicatorState extends State<CategoryListIndicator> {
                 onTap: () {
                   setState(() {
                     if (selectedIndex == index) {
-                      selectedIndex = -1;
+                      Provider.of<ListMethod>(context, listen: false)
+                          .resetCategoryIndex();
                     } else {
-                      selectedIndex = index;
+                      Provider.of<ListMethod>(context, listen: false)
+                          .setCategoryIndex(index);
                     }
+
                     Provider.of<ListMethod>(context, listen: false)
-                        .showProductFilterebByCategory(index, selectedIndex);
+                        .showProductFilterebByCategory(index);
                   });
                 },
                 child: Container(

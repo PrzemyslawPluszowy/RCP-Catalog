@@ -45,13 +45,6 @@ class _ListProductScreenState extends State<ListProductScreen> {
     }
   }
 
-  @override
-  void didChangeDependencies() {
-    _listToShow = dataProvider.listToShow;
-    _listOfcategory = dataProvider.getCategorySearchList();
-    super.didChangeDependencies();
-  }
-
   void getSelectedView(selected) {
     setState(() {
       selectedView = selected;
@@ -130,6 +123,8 @@ class _ListProductScreenState extends State<ListProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _listToShow = dataProvider.listToShow;
+    _listOfcategory = dataProvider.getCategorySearchList();
     bool showAppBar = widget.idCategory != null ? false : true;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,

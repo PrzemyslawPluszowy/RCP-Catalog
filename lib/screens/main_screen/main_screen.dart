@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/providers/setting_app_data_provider.dart';
+import 'package:rcp/screens/about_screen.dart/about_screen.dart';
 import 'package:rcp/screens/main_screen/last_product_widget.dart';
 import 'package:rcp/screens/main_screen/sail_button_widget.dart';
 import 'package:rcp/screens/main_screen/section_tittle_widget.dart';
@@ -8,6 +10,7 @@ import 'package:rcp/screens/main_screen/silver_appbar_widget.dart';
 import 'package:rcp/screens/main_screen/single_cat_grid_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'carusel_widget.dart';
 import 'main_bottombar_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -22,9 +25,30 @@ class _MainScreenState extends State<MainScreen> {
   late bool switchThemeMode;
 
   Future<void> _launchUrl() async {
+    HapticFeedback.lightImpact();
     if (!await launchUrl(_url)) {
       throw Exception('Could not launch $_url');
     }
+  }
+
+  void _goToAboutScreen() {
+    HapticFeedback.lightImpact();
+
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const AboutScreen(
+        initialPageIndex: 0,
+      ),
+    ));
+  }
+
+  String imageBgSwitch() {
+    String image = 'assets/images/bg.dark.webp';
+    setState(() {
+      switchThemeMode
+          ? (image = 'assets/images/bg.dark.webp')
+          : (image = 'assets/images/bg.light.jpg');
+    });
+    return image;
   }
 
   @override
@@ -59,57 +83,73 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          const AppBarWidget(),
-          SliverList(
-              delegate: SliverChildListDelegate([
-            Align(
-              alignment: Alignment.topRight,
-              child: Switch(
-                onChanged: (bool value) {
-                  setState(() {
-                    switchThemeMode = value;
-                    Provider.of<SettingAppProvider>(context, listen: false)
-                        .setThemeMode(value);
-                  });
-                },
-                value: switchThemeMode,
+    return Stack(children: [
+      Image.asset(imageBgSwitch(),
+          fit: BoxFit.cover,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width),
+      Scaffold(
+        backgroundColor: Colors.transparent,
+        body: CustomScrollView(
+          slivers: [
+            const AppBarWidget(),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Switch(
+                      onChanged: (bool value) {
+                        setState(() {
+                          switchThemeMode = value;
+                          Provider.of<SettingAppProvider>(context,
+                                  listen: false)
+                              .setThemeMode(value);
+                        });
+                      },
+                      value: switchThemeMode,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const SectionTitle(title: 'Select Main Category'),
+                  SingleCategoryGrid(category: category),
+                  const SectionTitle(title: 'Newset Product'),
+                  const LastProductList(),
+                  const SectionTitle(title: 'About Us'),
+                  CaruselInMain(),
+                  const Divider(),
+                  SizedBox(
+                    width: double.maxFinite,
+                    child: Row(
+                      verticalDirection: VerticalDirection.down,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SailButtonWidget(
+                          callback: _launchUrl,
+                          imageSrc: 'assets/images/tsunami.jpeg',
+                          icon: Icons.web,
+                          title: 'Go to Official Page',
+                        ),
+                        SailButtonWidget(
+                          callback: _goToAboutScreen,
+                          imageSrc: 'assets/images/engine.jpeg',
+                          icon: Icons.car_crash,
+                          title: 'About this app',
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const SectionTitle(title: 'Select Main Category'),
-            SingleCategoryGrid(category: category),
-            const SectionTitle(title: 'Newset Product'),
-            const LastProductList(),
-            const SectionTitle(title: 'Newset Product'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SailButtonWidget(
-                  callback: _launchUrl,
-                  imageSrc: 'assets/images/other/rcp-web.png',
-                  icon: Icons.web,
-                  title: 'Go to Official Page',
-                ),
-                SailButtonWidget(
-                  callback: _launchUrl,
-                  imageSrc: 'assets/images/other/rcp-web.png',
-                  icon: Icons.question_answer,
-                  title: 'FAQ',
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            const Divider(),
-          ]))
-        ],
+            )
+          ],
+        ),
       ),
-    );
+    ]);
   }
 }
