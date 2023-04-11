@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:rcp/screens/about_screen.dart/about_screen.dart';
+
+import 'package:url_launcher/url_launcher.dart';
 
 class CaruselInMain extends StatelessWidget {
   CaruselInMain({
@@ -10,37 +10,43 @@ class CaruselInMain extends StatelessWidget {
   final List<String> imgList = [
     'assets/images/tsunami.jpeg',
     'assets/images/ebay.jpeg',
-    'assets/images/maps.jpeg',
+    'assets/images/drag.jpeg',
   ];
   final List<String> textCarusel = [
     'Parts tested in dragster Tsunami 2200hp',
     'All of our products can be ordered and paid via the Paypal and Ebay',
-    'We work with customers all over the world',
+    'We Are official sponsors www.dragracing.pl',
   ];
+  final List<Uri> _url = [
+    Uri.parse('https://mickey-garage.com/'),
+    Uri.parse(
+        'https://www.ebay.com/str/racingcustomparts?fbclid=IwAR1M6aZgNiu0ZauIWg4KXAWxa-zAvtPg3SbptFfB6qPsWPJiYTNUF3ekz5Y'),
+    Uri.parse('https://www.dragracing.pl/'),
+  ];
+  Future<void> _launchUrl(int index) async {
+    if (!await launchUrl(_url[index])) {
+      throw Exception('Could not launch $_url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        HapticFeedback.mediumImpact();
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const AboutScreen(initialPageIndex: 1),
-          ),
-        );
-      },
-      child: SizedBox(
-        width: double.infinity,
-        height: 150,
-        child: CarouselSlider.builder(
-          itemCount: imgList.length,
-          options: CarouselOptions(
-            autoPlay: true,
-            aspectRatio: 3.0,
-            enlargeCenterPage: true,
-          ),
-          itemBuilder: (ctx, index, realIdx) {
-            return Stack(
+    return SizedBox(
+      width: double.infinity,
+      height: 150,
+      child: CarouselSlider.builder(
+        itemCount: imgList.length,
+        options: CarouselOptions(
+          autoPlay: true,
+          aspectRatio: 3.0,
+          enlargeCenterPage: true,
+        ),
+        itemBuilder: (ctx, index, realIdx) {
+          return GestureDetector(
+            onTap: () async {
+              _launchUrl(index);
+            },
+            child: Stack(
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
@@ -74,9 +80,9 @@ class CaruselInMain extends StatelessWidget {
                   ),
                 ),
               ],
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
