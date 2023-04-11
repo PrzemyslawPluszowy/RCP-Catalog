@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,6 +25,8 @@ class CaruselInMain extends StatelessWidget {
     Uri.parse('https://www.dragracing.pl/'),
   ];
   Future<void> _launchUrl(int index) async {
+    HapticFeedback.mediumImpact();
+
     if (!await launchUrl(_url[index])) {
       throw Exception('Could not launch $_url');
     }

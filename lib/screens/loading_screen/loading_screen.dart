@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:rcp/providers/cart_provider.dart';
 import 'package:rcp/providers/rcp_init_data_provider.dart';
 import 'package:rcp/providers/setting_app_data_provider.dart';
-import 'package:restart_app/restart_app.dart';
 
 import 'loading_big_button_widget.dart';
 
@@ -35,27 +34,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   _isLoading = false;
                 }));
       } catch (error) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Samething went wrong :( '),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text('$error'),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('Try Again'),
-                onPressed: () {
-                  Restart.restartApp();
-                },
-              ),
-            ],
-          ),
-        );
+        Provider.of<SettingAppProvider>(context, listen: false)
+            .showErrorDialog(error, context);
       }
     }
     _isInit = false;

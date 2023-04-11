@@ -72,6 +72,7 @@ class _ThemeChangerState extends State<ThemeChanger> {
       return Consumer<SettingAppProvider>(
         builder: (BuildContext context, value, Widget? child) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             theme: ThemeData(
               colorScheme: lightColorScheme,
               useMaterial3: true,

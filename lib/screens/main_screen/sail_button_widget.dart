@@ -6,12 +6,16 @@ class SailButtonWidget extends StatelessWidget {
     required this.imageSrc,
     required this.title,
     required this.icon,
-    this.callback,
+    required this.callback,
+    required this.blendColorl,
+    required this.boxShadowColor,
   }) : super(key: key);
   final String imageSrc;
   final String title;
   final IconData icon;
   final callback;
+  final Color blendColorl;
+  final Color boxShadowColor;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -23,7 +27,7 @@ class SailButtonWidget extends StatelessWidget {
           decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: const Color.fromARGB(255, 236, 5, 5).withOpacity(0.4),
+                  color: boxShadowColor,
                   spreadRadius: 1,
                   blurRadius: 1,
                   offset: const Offset(1, 1), // changes position of shadow
@@ -46,7 +50,7 @@ class SailButtonWidget extends StatelessWidget {
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.black),
                 borderRadius: BorderRadius.circular(10),
-                color: const Color.fromARGB(159, 0, 0, 0)),
+                color: blendColorl),
             child: Container()),
         SizedBox(
           height: 99,

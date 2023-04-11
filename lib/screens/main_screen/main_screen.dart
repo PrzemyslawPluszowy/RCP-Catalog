@@ -1,14 +1,17 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:rcp/providers/setting_app_data_provider.dart';
-import 'package:rcp/screens/about_screen.dart/about_screen.dart';
+import 'package:rcp/screens/about_screen/about_screen.dart';
 import 'package:rcp/screens/main_screen/last_product_widget.dart';
 import 'package:rcp/screens/main_screen/sail_button_widget.dart';
 import 'package:rcp/screens/main_screen/section_tittle_widget.dart';
 import 'package:rcp/screens/main_screen/silver_appbar_widget.dart';
 import 'package:rcp/screens/main_screen/single_cat_grid_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'carusel_widget.dart';
 import 'main_bottombar_screen.dart';
@@ -22,12 +25,36 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final Uri _url = Uri.parse('https://racingcustomparts.com/');
+  final facebookLink =
+      'fb://facewebmodal/f?href=https://www.facebook.com/RacingCustomParts/';
+  final instaLink = 'https://www.instagram.com/racingcustomparts/';
   late bool switchThemeMode;
 
-  Future<void> _launchUrl() async {
+  Future<void> _launchUrlToBroswer() async {
     HapticFeedback.lightImpact();
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
+    try {
+      if (!await launchUrl(_url)) {
+        throw Exception('Could not launch $_url');
+      }
+    } catch (error) {
+      Provider.of<SettingAppProvider>(context, listen: false)
+          .showErrorDialog(error, context);
+    }
+  }
+
+  Future<void> _launchSocialMediaAppIfInstalled({required String url}) async {
+    HapticFeedback.mediumImpact();
+
+    try {
+      bool launched = await launchUrlString(url,
+          mode: LaunchMode.externalNonBrowserApplication);
+
+      if (!launched) {
+        launchUrlString(url); // Launch web view if app is not installed!
+      }
+    } catch (error) {
+      Provider.of<SettingAppProvider>(context, listen: false)
+          .showErrorDialog(error, context);
     }
   }
 
@@ -117,6 +144,38 @@ class _MainScreenState extends State<MainScreen> {
                   SingleCategoryGrid(category: category),
                   const SectionTitle(title: 'Newset Product'),
                   const LastProductList(),
+                  const SectionTitle(title: "Social media"),
+                  SizedBox(
+                    width: double.maxFinite,
+                    child: Row(
+                      verticalDirection: VerticalDirection.down,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SailButtonWidget(
+                          boxShadowColor: const Color.fromARGB(255, 19, 7, 79)
+                              .withOpacity(0.4),
+                          blendColorl: const Color.fromARGB(209, 9, 37, 83),
+                          callback: () {
+                            _launchSocialMediaAppIfInstalled(url: facebookLink);
+                          },
+                          imageSrc: 'assets/images/tsunami.jpeg',
+                          icon: Icons.facebook,
+                          title: 'Like us ',
+                        ),
+                        SailButtonWidget(
+                          boxShadowColor: const Color.fromARGB(255, 43, 2, 38)
+                              .withOpacity(0.4),
+                          blendColorl: const Color.fromARGB(190, 73, 6, 62),
+                          callback: () {
+                            _launchSocialMediaAppIfInstalled(url: instaLink);
+                          },
+                          imageSrc: 'assets/images/drag.jpeg',
+                          icon: Icons.photo_camera,
+                          title: 'Fallow us',
+                        ),
+                      ],
+                    ),
+                  ),
                   const SectionTitle(title: 'About Us'),
                   CaruselInMain(),
                   const Divider(),
@@ -127,12 +186,18 @@ class _MainScreenState extends State<MainScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         SailButtonWidget(
-                          callback: _launchUrl,
+                          boxShadowColor: const Color.fromARGB(255, 236, 5, 5)
+                              .withOpacity(0.4),
+                          blendColorl: const Color.fromARGB(204, 0, 0, 0),
+                          callback: _launchUrlToBroswer,
                           imageSrc: 'assets/images/tsunami.jpeg',
                           icon: Icons.web,
                           title: 'Go to Official Page',
                         ),
                         SailButtonWidget(
+                          boxShadowColor: const Color.fromARGB(255, 236, 5, 5)
+                              .withOpacity(0.4),
+                          blendColorl: const Color.fromARGB(204, 0, 0, 0),
                           callback: _goToAboutScreen,
                           imageSrc: 'assets/images/engine.jpeg',
                           icon: Icons.car_crash,

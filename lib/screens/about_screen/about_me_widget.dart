@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../providers/setting_app_data_provider.dart';
 
 const _textCV =
     "Hi, my name is Przemek, for friends Pluszowy. I come from Cracov, a city in Poland. I'm not proffessional developer but I'm willing to be. I created this app, for my friends company, and I learn Flutter and Dart on this app. I hope you'll like it. I have a little expierence in Java Script, html, angular and css but I focus on Flutter and Dart. \n If you are company's developer and my work is good for you I'm searching for employment in this industry as trainee.";
@@ -18,11 +21,16 @@ class _AboutMeState extends State<AboutMe> {
     path: _mail,
   );
   Future<void> _makePhoneCall(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    await launchUrl(launchUri);
+    try {
+      final Uri launchUri = Uri(
+        scheme: 'tel',
+        path: phoneNumber,
+      );
+      await launchUrl(launchUri);
+    } catch (error) {
+      Provider.of<SettingAppProvider>(context, listen: false)
+          .showErrorDialog(error, context);
+    }
   }
 
   @override
@@ -75,13 +83,13 @@ class _AboutMeState extends State<AboutMe> {
                           onPressed: () {
                             launchUrl(emailLaunchUri);
                           },
-                          icon: Icon(Icons.mail),
+                          icon: const Icon(Icons.mail),
                           label: const Text('Write mail to me')),
                       TextButton.icon(
                           onPressed: () {
                             _makePhoneCall(_phoneNumber);
                           },
-                          icon: Icon(Icons.smartphone),
+                          icon: const Icon(Icons.smartphone),
                           label: const Text('Call Me')),
                     ],
                   ),

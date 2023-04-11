@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:restart_app/restart_app.dart';
 
 class SettingAppProvider with ChangeNotifier {
   late bool isLightThemeMode = true;
@@ -55,5 +56,29 @@ class SettingAppProvider with ChangeNotifier {
     } else {
       return personBox.get('email');
     }
+  }
+
+  Future<dynamic> showErrorDialog(Object error, BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Samething went wrong :( '),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text('$error'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Try Again'),
+            onPressed: () {
+              Restart.restartApp();
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

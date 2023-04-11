@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../providers/setting_app_data_provider.dart';
 import '../question_screen/round_logo.widgtet.dart';
 
 class AboutApp extends StatelessWidget {
@@ -47,7 +49,14 @@ class AboutApp extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        launchUrl(Uri.parse('https://racingcustomparts.com/'));
+                        try {
+                          launchUrl(
+                              Uri.parse('https://racingcustomparts.com/'));
+                        } catch (error) {
+                          Provider.of<SettingAppProvider>(context,
+                                  listen: false)
+                              .showErrorDialog(error, context);
+                        }
                       },
                       child: Text('www.racingcustomparts.com',
                           style: Theme.of(context).textTheme.labelMedium),
