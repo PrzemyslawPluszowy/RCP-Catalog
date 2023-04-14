@@ -13,3 +13,4 @@ key.properties
 **/*.jks
 app/upload-keystore.jks
 lib/providers/api_key/api_key.dart
+lib/providers/api_key/
