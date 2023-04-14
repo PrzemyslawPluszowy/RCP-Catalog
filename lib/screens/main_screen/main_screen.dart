@@ -1,4 +1,4 @@
-// import 'dart:html';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,10 +25,37 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final Uri _url = Uri.parse('https://racingcustomparts.com/');
-  final facebookAppLink = 'fb://page/1422674971360874';
-  final facebookHttpsLink = 'https://www.facebook.com/RacingCustomParts/';
+
   final instaLink = 'https://www.instagram.com/racingcustomparts/';
   late bool switchThemeMode;
+
+  Future<void> _openFacebook() async {
+    HapticFeedback.mediumImpact();
+
+    String fbProtocolUrl;
+    if (Platform.isIOS) {
+      fbProtocolUrl = 'fb://profile/1422674971360874';
+    } else {
+      fbProtocolUrl = 'fb://page/1422674971360874';
+    }
+
+    String fallbackUrl = 'https://www.facebook.com/RacingCustomParts';
+
+    try {
+      Uri fbBundleUri = Uri.parse(fbProtocolUrl);
+      var canLaunchNatively = await canLaunchUrl(fbBundleUri);
+
+      if (canLaunchNatively) {
+        launchUrl(fbBundleUri);
+      } else {
+        await launchUrl(Uri.parse(fallbackUrl),
+            mode: LaunchMode.externalApplication);
+      }
+    } catch (error) {
+      Provider.of<SettingAppProvider>(context, listen: false)
+          .showErrorDialog(error, context);
+    }
+  }
 
   Future<void> _launchUrlToBroswer() async {
     HapticFeedback.lightImpact();
@@ -46,18 +73,15 @@ class _MainScreenState extends State<MainScreen> {
       {required String appLink, String? alternative}) async {
     HapticFeedback.mediumImpact();
 
-    try {
-      bool launched = await launchUrlString(
-        appLink,
-        mode: LaunchMode.externalApplication,
-      );
-      if (!launched) {
-        await launchUrlString(
-            alternative ?? appLink); // Launch web view if app is not installed!
-      }
-    } catch (error) {
-      Provider.of<SettingAppProvider>(context, listen: false)
-          .showErrorDialog(error, context);
+    bool launched = await launchUrlString(
+      appLink,
+      mode: LaunchMode.externalApplication,
+    );
+    if (!launched) {
+      await launchUrlString(
+          alternative as String); // Launch web view if app is not installed!
+    } else {
+      launchUrlString(appLink);
     }
   }
 
@@ -159,10 +183,7 @@ class _MainScreenState extends State<MainScreen> {
                               .withOpacity(0.4),
                           blendColorl: const Color.fromARGB(209, 9, 37, 83),
                           callback: () {
-                            _launchSocialMediaAppIfInstalled(
-                              alternative: facebookHttpsLink,
-                              appLink: facebookAppLink,
-                            );
+                            _openFacebook();
                           },
                           imageSrc: 'assets/images/tsunami.jpeg',
                           icon: Icons.facebook,

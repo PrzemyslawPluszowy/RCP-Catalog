@@ -75,11 +75,13 @@ class _LoadingBigButtonState extends State<LoadingBigButton>
                         width: double.maxFinite,
                         color: const Color.fromARGB(135, 255, 255, 255),
                         child: const Center(
-                          child: Text('Click To Enter',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w800)),
+                          child: FittedBox(
+                            child: Text('Click To Enter',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w800)),
+                          ),
                         ),
                       ),
                     )

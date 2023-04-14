@@ -55,45 +55,48 @@ class _LoadingScreenState extends State<LoadingScreen> {
             Color.fromARGB(221, 0, 0, 0),
             Color.fromARGB(255, 246, 64, 51),
           ])),
-      child: Container(
-        decoration: const BoxDecoration(color: Colors.black87),
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/2x/logo.png'),
-            _isLoading
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const CircularProgressIndicator(
-                          color: Colors.white,
-                        ),
-                        const Padding(padding: EdgeInsets.only(bottom: 15)),
-                        const Text(
-                          "Loading catalog RCP",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                        const Text(
-                          'please wait a moment',
-                          style: TextStyle(
-                              color: Colors.white,
-                              decorationStyle: TextDecorationStyle.dashed),
-                        ),
-                        Consumer<RcpData>(
-                          builder: (context, value, child) => Text(
-                              'Getting product ${value.count}/${value.numberProduct + 2}',
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  decorationStyle: TextDecorationStyle.dashed)),
-                        ),
-                      ],
-                    ),
-                  )
-                : const LoadingBigButton()
-          ],
+      child: SafeArea(
+        child: Container(
+          decoration: const BoxDecoration(color: Colors.black87),
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset('assets/images/2x/logo.png'),
+              _isLoading
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                          const Padding(padding: EdgeInsets.only(bottom: 15)),
+                          const Text(
+                            "Loading catalog RCP",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          const Text(
+                            'please wait a moment',
+                            style: TextStyle(
+                                color: Colors.white,
+                                decorationStyle: TextDecorationStyle.dashed),
+                          ),
+                          Consumer<RcpData>(
+                            builder: (context, value, child) => Text(
+                                'Getting product ${value.count}/${value.numberProduct + 2}',
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    decorationStyle:
+                                        TextDecorationStyle.dashed)),
+                          ),
+                        ],
+                      ),
+                    )
+                  : const LoadingBigButton()
+            ],
+          ),
         ),
       ),
     ));
