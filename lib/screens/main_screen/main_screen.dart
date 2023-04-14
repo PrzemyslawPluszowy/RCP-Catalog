@@ -25,8 +25,9 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final Uri _url = Uri.parse('https://racingcustomparts.com/');
-  final facebookLink =
+  final facebookAppLink =
       'fb://facewebmodal/f?href=https://www.facebook.com/RacingCustomParts/';
+  final facebookHttpsLink = 'https://www.facebook.com/RacingCustomParts/';
   final instaLink = 'https://www.instagram.com/racingcustomparts/';
   late bool switchThemeMode;
 
@@ -42,15 +43,18 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  Future<void> _launchSocialMediaAppIfInstalled({required String url}) async {
+  Future<void> _launchSocialMediaAppIfInstalled(
+      {required String appLink, String? alternative}) async {
     HapticFeedback.mediumImpact();
 
     try {
-      bool launched = await launchUrlString(url,
-          mode: LaunchMode.externalNonBrowserApplication);
-
+      bool launched = await launchUrlString(
+        appLink,
+        mode: LaunchMode.externalNonBrowserApplication,
+      );
       if (!launched) {
-        launchUrlString(url); // Launch web view if app is not installed!
+        launchUrlString(
+            alternative ?? appLink); // Launch web view if app is not installed!
       }
     } catch (error) {
       Provider.of<SettingAppProvider>(context, listen: false)
@@ -156,7 +160,9 @@ class _MainScreenState extends State<MainScreen> {
                               .withOpacity(0.4),
                           blendColorl: const Color.fromARGB(209, 9, 37, 83),
                           callback: () {
-                            _launchSocialMediaAppIfInstalled(url: facebookLink);
+                            _launchSocialMediaAppIfInstalled(
+                                appLink: facebookAppLink,
+                                alternative: facebookHttpsLink);
                           },
                           imageSrc: 'assets/images/tsunami.jpeg',
                           icon: Icons.facebook,
@@ -167,7 +173,8 @@ class _MainScreenState extends State<MainScreen> {
                               .withOpacity(0.4),
                           blendColorl: const Color.fromARGB(190, 73, 6, 62),
                           callback: () {
-                            _launchSocialMediaAppIfInstalled(url: instaLink);
+                            _launchSocialMediaAppIfInstalled(
+                                appLink: instaLink);
                           },
                           imageSrc: 'assets/images/drag.jpeg',
                           icon: Icons.photo_camera,
@@ -176,9 +183,9 @@ class _MainScreenState extends State<MainScreen> {
                       ],
                     ),
                   ),
-                  const SectionTitle(title: 'About Us'),
+                  const SectionTitle(title: ''),
                   CaruselInMain(),
-                  const Divider(),
+                  const SectionTitle(title: 'About us'),
                   SizedBox(
                     width: double.maxFinite,
                     child: Row(
