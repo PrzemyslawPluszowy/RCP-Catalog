@@ -32,7 +32,6 @@ migrate_working_dir/
 .pub/
 /build/
 lib/providers/api_key/api_key.dart
-
 # Symbolication related
 app.*.symbols
 
@@ -45,3 +44,5 @@ app.*.map.json
 /android/app/release
 
 **/lib/providers/api_key/api_key.dart
+lib/providers/api_key
+lib/providers/api_key/api_key.dart
