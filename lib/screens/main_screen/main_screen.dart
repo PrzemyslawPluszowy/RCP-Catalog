@@ -25,8 +25,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final Uri _url = Uri.parse('https://racingcustomparts.com/');
-  final facebookAppLink =
-      'fb://facewebmodal/f?href=https://www.facebook.com/RacingCustomParts/';
+  final facebookAppLink = 'fb://page/1422674971360874';
   final facebookHttpsLink = 'https://www.facebook.com/RacingCustomParts/';
   final instaLink = 'https://www.instagram.com/racingcustomparts/';
   late bool switchThemeMode;
@@ -50,10 +49,10 @@ class _MainScreenState extends State<MainScreen> {
     try {
       bool launched = await launchUrlString(
         appLink,
-        mode: LaunchMode.externalNonBrowserApplication,
+        mode: LaunchMode.externalApplication,
       );
       if (!launched) {
-        launchUrlString(
+        await launchUrlString(
             alternative ?? appLink); // Launch web view if app is not installed!
       }
     } catch (error) {
@@ -161,8 +160,9 @@ class _MainScreenState extends State<MainScreen> {
                           blendColorl: const Color.fromARGB(209, 9, 37, 83),
                           callback: () {
                             _launchSocialMediaAppIfInstalled(
-                                appLink: facebookAppLink,
-                                alternative: facebookHttpsLink);
+                              alternative: facebookHttpsLink,
+                              appLink: facebookAppLink,
+                            );
                           },
                           imageSrc: 'assets/images/tsunami.jpeg',
                           icon: Icons.facebook,
