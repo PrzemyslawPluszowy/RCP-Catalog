@@ -8,22 +8,27 @@ import 'package:rcp/providers/rcp_init_data_provider.dart';
 import 'package:rcp/providers/setting_app_data_provider.dart';
 import 'package:rcp/screens/loading_screen/loading_screen.dart';
 import 'package:rcp/screens/main_screen/main_bottombar_screen.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Hive.initFlutter();
-  runApp(const RCP());
+
+  await SentryFlutter.init(
+    (options) {
+      options.dsn =
+          'https://d80a274481f24e148a1c3bb5366290c4@o4505013410136064.ingest.sentry.io/4505013411250176';
+      // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+      // We recommend adjusting this value in production.
+      options.tracesSampleRate = 1.0;
+    },
+    appRunner: () => runApp(const RCP()),
+  );
 }
 
 class RCP extends StatelessWidget {
   const RCP({super.key});
-
-  // static final _defaultLightColorScheme =
-  //     ColorScheme.fromSwatch(primarySwatch: Colors.red);
-
-  // static final _defaultDarkColorScheme = ColorScheme.fromSwatch(
-  //     primarySwatch: Colors.grey, brightness: Brightness.light);
 
   @override
   Widget build(BuildContext context) {

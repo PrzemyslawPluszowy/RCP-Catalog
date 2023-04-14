@@ -55,6 +55,7 @@ dependencies:
   internet_connection_checker_plus: ^1.0.1
   restart_app: ^1.1.2
   flutter_launcher_icons: ^0.13.0
+  sentry_flutter: ^7.4.2
 flutter_icons:
   image_path: "assets/images/logoIco.jpg"
   android: true

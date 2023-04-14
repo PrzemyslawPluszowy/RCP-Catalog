@@ -17,95 +17,101 @@ class CartScreen extends StatelessWidget {
       // appBar: AppBar(automaticallyImplyLeading: false),
       body: Consumer<CartProvider>(builder: (context, value, child) {
         var listProductCart = value.hiveCart.values.toList();
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: heightScreen * 0.65,
-                child: ListView.builder(
-                  itemCount: value.hiveCart.length,
-                  itemBuilder: (context, index) => Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: widthScreen * 0.2,
-                            child: ImgageLoading(
-                                imageSrc: listProductCart[index]
-                                    .product
-                                    .images
-                                    .first
-                                    .src as String,
-                                boxFit: BoxFit.cover),
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          SizedBox(
-                            width: widthScreen * 0.48,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(listProductCart[index].product.name,
-                                    softWrap: true),
-                                const SizedBox(height: 3),
-                                Text(
-                                    '€ ${value.showProductPriceWithQuantity(listProductCart[index].product)}')
-                              ],
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  height: heightScreen * 0.75,
+                  child: ListView.builder(
+                    itemCount: value.hiveCart.length,
+                    itemBuilder: (context, index) => Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: widthScreen * 0.2,
+                              child: ImgageLoading(
+                                  imageSrc: listProductCart[index]
+                                      .product
+                                      .images
+                                      .first
+                                      .src as String,
+                                  boxFit: BoxFit.cover),
                             ),
-                          ),
-                          SizedBox(
-                            width: widthScreen * 0.3,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: widthScreen * 0.1,
-                                  child: IconButton(
-                                      onPressed: () {
-                                        value.addProductToList(
-                                            listProductCart[index].product);
-                                      },
-                                      icon: const Icon(Icons.add)),
-                                ),
-                                SizedBox(
-                                  child: Text(
-                                    '${listProductCart[index].itemCount}x ',
-                                    textScaleFactor: 1.2,
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            SizedBox(
+                              width: widthScreen * 0.48,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(listProductCart[index].product.name,
+                                      softWrap: true),
+                                  const SizedBox(height: 3),
+                                  Text(
+                                      '€ ${value.showProductPriceWithQuantity(listProductCart[index].product)}')
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: widthScreen * 0.3,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: widthScreen * 0.1,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          value.addProductToList(
+                                              listProductCart[index].product);
+                                        },
+                                        icon: const Icon(Icons.add)),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: widthScreen * 0.1,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      value.removeProductFromList(
-                                          listProductCart[index].product);
-                                    },
-                                    icon: const Icon(
-                                      Icons.remove,
+                                  SizedBox(
+                                    child: Text(
+                                      '${listProductCart[index].itemCount}x ',
+                                      textScaleFactor: 1.2,
                                     ),
                                   ),
-                                ),
-                              ],
+                                  SizedBox(
+                                    width: widthScreen * 0.1,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        value.removeProductFromList(
+                                            listProductCart[index].product);
+                                      },
+                                      icon: const Icon(
+                                        Icons.remove,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const Divider()
-                    ],
+                          ],
+                        ),
+                        const Divider()
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              TotalPriceWidget(
-                  widthScreen: widthScreen, heightScreen: heightScreen)
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                TotalPriceWidget(
+                    widthScreen: widthScreen, heightScreen: heightScreen)
+              ],
+            ),
           ),
         );
       }),

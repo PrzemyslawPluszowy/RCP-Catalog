@@ -20,36 +20,49 @@ class TotalPriceWidget extends StatelessWidget {
     return Consumer<CartProvider>(
       builder: (context, value, child) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            OutlinedButton.icon(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const OrderScreen(),
-                  ));
-                },
-                icon: const Icon(Icons.shopping_bag),
-                label: const Text('Send Your Order')),
-            SizedBox(
-              width: widthScreen * 0.4,
-              height: heightScreen * 0.15,
-              child: SizedBox(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const Divider(),
-                    const Text('Total Cost:'),
-                    Text('${value.totalCostCount().toStringAsFixed(2)} €',
-                        style: const TextStyle(color: Colors.redAccent)),
-                    Text(
-                        'inc.Vat ${value.totalCostCount().toStringAsFixed(2).addVat()} €',
-                        style: const TextStyle(color: Colors.blueAccent)),
-                  ],
+        child: SizedBox(
+          height: heightScreen * 0.24,
+          width: widthScreen,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: widthScreen * 0.5,
+                    child: OutlinedButton.icon(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const OrderScreen(),
+                          ));
+                        },
+                        icon: const Icon(Icons.shopping_bag),
+                        label: const Text('Send Your Order')),
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: widthScreen * 0.4,
+                child: SizedBox(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const Divider(),
+                      const Text('Total Cost:'),
+                      Text('${value.totalCostCount().toStringAsFixed(2)} €',
+                          style: const TextStyle(color: Colors.redAccent)),
+                      Text(
+                          'inc.Vat ${value.totalCostCount().toStringAsFixed(2).addVat()} €',
+                          style: const TextStyle(color: Colors.blueAccent)),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

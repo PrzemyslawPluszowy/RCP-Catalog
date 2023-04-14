@@ -19,7 +19,7 @@ class CaruselInMain extends StatelessWidget {
     'We Are official sponsors www.dragracing.pl',
   ];
   final List<Uri> _url = [
-    Uri.parse('https://mickey-garage.com/'),
+    Uri.parse('https://www.youtube.com/MickeyGarageOfficial'),
     Uri.parse(
         'https://www.ebay.com/str/racingcustomparts?fbclid=IwAR1M6aZgNiu0ZauIWg4KXAWxa-zAvtPg3SbptFfB6qPsWPJiYTNUF3ekz5Y'),
     Uri.parse('https://www.dragracing.pl/'),

@@ -10,9 +10,9 @@ const List<Widget> tabs = [
 ];
 
 const List<Widget> about = [
-  AboutApp(),
-  FaqWidget(),
-  AboutMe(),
+  SingleChildScrollView(child: AboutApp()),
+  SingleChildScrollView(child: FaqWidget()),
+  SingleChildScrollView(child: AboutMe()),
 ];
 
 class AboutScreen extends StatelessWidget {
