@@ -3,6 +3,10 @@
 <plist version="1.0">
 <dict>
 <key>CFBundleURLTypes</key>
+<key>LSApplicationQueriesSchemes</key>
+<array>
+    <string>fb</string>
+</array>
 <array>
     <dict>
         <key>CFBundleURLSchemes</key>

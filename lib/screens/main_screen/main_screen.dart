@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +9,6 @@ import 'package:rcp/screens/main_screen/section_tittle_widget.dart';
 import 'package:rcp/screens/main_screen/silver_appbar_widget.dart';
 import 'package:rcp/screens/main_screen/single_cat_grid_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import 'carusel_widget.dart';
 import 'main_bottombar_screen.dart';
@@ -26,36 +23,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final Uri _url = Uri.parse('https://racingcustomparts.com/');
 
-  final instaLink = 'https://www.instagram.com/racingcustomparts/';
+  final instaLink = Uri.parse('https://www.instagram.com/racingcustomparts/');
+  final fbLink = Uri.parse('https://www.facebook.com/RacingCustomParts/');
   late bool switchThemeMode;
-
-  Future<void> _openFacebook() async {
-    HapticFeedback.mediumImpact();
-
-    String fbProtocolUrl;
-    if (Platform.isIOS) {
-      fbProtocolUrl = 'fb://profile/1422674971360874';
-    } else {
-      fbProtocolUrl = 'fb://page/1422674971360874';
-    }
-
-    String fallbackUrl = 'https://www.facebook.com/RacingCustomParts';
-
-    try {
-      Uri fbBundleUri = Uri.parse(fbProtocolUrl);
-      var canLaunchNatively = await canLaunchUrl(fbBundleUri);
-
-      if (canLaunchNatively) {
-        launchUrl(fbBundleUri);
-      } else {
-        await launchUrl(Uri.parse(fallbackUrl),
-            mode: LaunchMode.externalApplication);
-      }
-    } catch (error) {
-      Provider.of<SettingAppProvider>(context, listen: false)
-          .showErrorDialog(error, context);
-    }
-  }
 
   Future<void> _launchUrlToBroswer() async {
     HapticFeedback.lightImpact();
@@ -69,19 +39,20 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  Future<void> _launchSocialMediaAppIfInstalled(
-      {required String appLink, String? alternative}) async {
-    HapticFeedback.mediumImpact();
+  Future<void> _launchSocialMediaAppIfInstalled({
+    required Uri url,
+  }) async {
+    HapticFeedback.lightImpact();
 
-    bool launched = await launchUrlString(
-      appLink,
-      mode: LaunchMode.externalApplication,
-    );
-    if (!launched) {
-      await launchUrlString(
-          alternative as String); // Launch web view if app is not installed!
-    } else {
-      launchUrlString(appLink);
+    try {
+      bool launched = await launchUrl(url,
+          mode: LaunchMode.externalApplication); // Launch the app if installed!
+
+      if (!launched) {
+        launchUrl(url); // Launch web view if app is not installed!
+      }
+    } catch (e) {
+      launchUrl(url); // Launch web view if app is not installed!
     }
   }
 
@@ -183,7 +154,7 @@ class _MainScreenState extends State<MainScreen> {
                               .withOpacity(0.4),
                           blendColorl: const Color.fromARGB(209, 9, 37, 83),
                           callback: () {
-                            _openFacebook();
+                            _launchSocialMediaAppIfInstalled(url: fbLink);
                           },
                           imageSrc: 'assets/images/tsunami.jpeg',
                           icon: Icons.facebook,
@@ -194,8 +165,7 @@ class _MainScreenState extends State<MainScreen> {
                               .withOpacity(0.4),
                           blendColorl: const Color.fromARGB(190, 73, 6, 62),
                           callback: () {
-                            _launchSocialMediaAppIfInstalled(
-                                appLink: instaLink);
+                            _launchSocialMediaAppIfInstalled(url: instaLink);
                           },
                           imageSrc: 'assets/images/drag.jpeg',
                           icon: Icons.photo_camera,
