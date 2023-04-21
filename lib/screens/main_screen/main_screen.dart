@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +38,35 @@ class _MainScreenState extends State<MainScreen> {
     } catch (error) {
       Provider.of<SettingAppProvider>(context, listen: false)
           .showErrorDialog(error, context);
+    }
+  }
+
+  Future<void> _openFacebook() async {
+    HapticFeedback.lightImpact();
+
+    String fbProtocolUrl;
+    if (Platform.isIOS) {
+      fbProtocolUrl = 'fb://profile/1422674971360874';
+    } else {
+      fbProtocolUrl = 'fb://page/1422674971360874';
+    }
+
+    String fallbackUrl = 'https://www.facebook.com/RacingCustomParts';
+
+    try {
+      Uri fbBundleUri = Uri.parse(fbProtocolUrl);
+      var canLaunchNatively = await canLaunchUrl(fbBundleUri);
+
+      if (canLaunchNatively) {
+        launchUrl(fbBundleUri);
+      } else {
+        await launchUrl(Uri.parse(fallbackUrl),
+            mode: LaunchMode.externalApplication);
+      }
+    } catch (e, st) {
+      await launchUrl(
+        Uri.parse(fallbackUrl),
+      );
     }
   }
 
@@ -142,7 +173,8 @@ class _MainScreenState extends State<MainScreen> {
                   SingleCategoryGrid(category: category),
                   const SectionTitle(title: 'Newset Product'),
                   const LastProductList(),
-                  const SectionTitle(title: "Social media"),
+                  const SectionTitle(
+                      title: "Social media (You must be logged)"),
                   SizedBox(
                     width: double.maxFinite,
                     child: Row(
@@ -154,7 +186,7 @@ class _MainScreenState extends State<MainScreen> {
                               .withOpacity(0.4),
                           blendColorl: const Color.fromARGB(209, 9, 37, 83),
                           callback: () {
-                            _launchSocialMediaAppIfInstalled(url: fbLink);
+                            _openFacebook();
                           },
                           imageSrc: 'assets/images/tsunami.jpeg',
                           icon: Icons.facebook,

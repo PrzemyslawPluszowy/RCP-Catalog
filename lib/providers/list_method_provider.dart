@@ -41,7 +41,8 @@ class ListMethod with ChangeNotifier {
     List<String> listString = value.split(' ');
     searchList.addAll((_listToSearch.where((product) {
       return listString.every((element) =>
-          product.name.toLowerCase().contains(element.toLowerCase()));
+          '${product.name.toLowerCase()} ${product.shortDescription?.toLowerCase()}'
+              .contains(element.toLowerCase()));
     }).toList()));
     _listToShow = searchList;
     _storegeSearchList = searchList;
